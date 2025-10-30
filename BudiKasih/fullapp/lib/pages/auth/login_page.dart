@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import '../../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_input.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passController = TextEditingController();
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF2A67B1), Color(0xFF122B4B)],
+            colors: [AppColors.primaryBlue, AppColors.darkBlue],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -26,81 +33,56 @@ class LoginPage extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 28),
 
-            // Placeholder untuk input (tidak aktif dulu)
-            Container(
-              height: 48,
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Text(
-                'Email',
-                style: TextStyle(color: Colors.black54),
-              ),
+            CustomInput(
+              controller: emailController,
+              label: 'Email',
+              keyboardType: TextInputType.emailAddress,
             ),
-            Container(
-              height: 48,
-              margin: const EdgeInsets.only(bottom: 24),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Text(
-                'Password',
-                style: TextStyle(color: Colors.black54),
-              ),
+            const SizedBox(height: 12),
+            CustomInput(
+              controller: passController,
+              label: 'Password',
+              obscure: true,
             ),
+            const SizedBox(height: 24),
 
-            // Tombol Login
-            ElevatedButton(
+            // 👉 langsung ke halaman beranda
+            CustomButton(
+              text: 'Masuk',
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/home');
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: const Color(0xFF122B4B),
-                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: const Text(
-                'Masuk',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
+              background: Colors.white,
+              textColor: AppColors.darkBlue,
             ),
 
             const SizedBox(height: 20),
 
-            // Tombol Sign Up
             TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/signup');
-              },
+              onPressed: () => Navigator.pushNamed(context, '/signup'),
               child: const Text(
                 'Belum punya akun? Daftar',
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(color: Colors.white),
               ),
             ),
+
+            TextButton(
+              onPressed: () => Navigator.pushNamed(context, '/setting_pass'),
+              child: const Text(
+                'Lupa Password?',
+                style: TextStyle(color: Colors.white70),
+              ),
+            ),
+
             const SizedBox(height: 8),
 
-            // Tombol Kembali ke Welcome
             TextButton(
-              onPressed: () {
-                // Kembali ke halaman Welcome dan kosongkan stack sehingga
-                // user tidak dapat menekan back untuk kembali ke Login
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-              },
+              onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
               child: const Text(
                 'Kembali ke Welcome',
-                style: TextStyle(color: Colors.white70, fontSize: 14),
+                style: TextStyle(color: Colors.white70),
               ),
             ),
           ],
