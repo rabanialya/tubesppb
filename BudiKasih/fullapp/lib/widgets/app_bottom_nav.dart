@@ -11,7 +11,7 @@ class AppBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      backgroundColor: AppColors.darkBlue,
+      backgroundColor: AppColors.primaryBlue,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white70,
       onTap: onTap,
