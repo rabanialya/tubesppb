@@ -51,7 +51,7 @@ class _NotificationPageState extends State<NotificationPage> {
               const Text(
                 'Pilih Jenis Donasi',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -61,7 +61,7 @@ class _NotificationPageState extends State<NotificationPage> {
               Text(
                 'Setiap bantuan Anda sangat berarti',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: Colors.grey[600],
                 ),
@@ -140,7 +140,7 @@ class _NotificationPageState extends State<NotificationPage> {
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: color,
@@ -177,7 +177,7 @@ class _NotificationPageState extends State<NotificationPage> {
             const Text(
               'Filter Notifikasi',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: AppColors.darkBlue,
@@ -223,7 +223,7 @@ class _NotificationPageState extends State<NotificationPage> {
             Text(
               text,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 15,
                 color: isSelected ? AppColors.primaryBlue : Colors.black87,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
@@ -297,7 +297,7 @@ class _NotificationPageState extends State<NotificationPage> {
         title: const Text(
           'Notifikasi',
           style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -342,7 +342,7 @@ class _NotificationPageState extends State<NotificationPage> {
                           child: Text(
                             section['date'],
                             style: const TextStyle(
-                              fontFamily: AppTextStyles.fontFamily,
+                              fontFamily: 'Poppins',
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.darkBlue,
@@ -415,7 +415,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   Text(
                     item['msg'],
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 14,
                       color: Colors.black87,
                       height: 1.5,
@@ -433,7 +433,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       child: Text(
                         'BARU',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                           color: Colors.red.shade700,
@@ -472,7 +472,7 @@ class _NotificationPageState extends State<NotificationPage> {
           Text(
             'Belum Ada Notifikasi',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
@@ -482,7 +482,7 @@ class _NotificationPageState extends State<NotificationPage> {
           Text(
             'Notifikasi akan muncul di sini',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 14,
               color: Colors.grey[500],
             ),

@@ -124,7 +124,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
             const Text(
               'Terima Kasih!',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: AppColors.darkBlue,
@@ -135,7 +135,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               'Donasi Anda sangat berarti bagi Oma & Opa di panti.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 color: Colors.grey[700],
                 height: 1.5,
@@ -153,7 +153,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                   Text(
                     'Selanjutnya:',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[700],
@@ -164,7 +164,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                     '• Kirim barang ke alamat panti\n• Atau hubungi admin untuk penjemputan',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 12,
                       color: Colors.grey[600],
                       height: 1.4,
@@ -192,7 +192,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                 child: const Text(
                   'Kembali ke Beranda',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -250,7 +250,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               const Text(
                 'Pilih Jenis Donasi',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -314,6 +314,13 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: color.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Icon(icon, color: Colors.white, size: 32),
             ),
@@ -322,7 +329,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: color,
@@ -369,8 +376,17 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.primaryBlue,
+            gradient: LinearGradient(
+              colors: [AppColors.primaryBlue, AppColors.primaryBlue.withOpacity(0.8)],
+            ),
             borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primaryBlue.withOpacity(0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Column(
             children: [
@@ -389,7 +405,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                     child: Text(
                       'Kebutuhan Panti Saat Ini',
                       style: TextStyle(
-                        fontFamily: AppTextStyles.fontFamily,
+                        fontFamily: 'Poppins',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -402,7 +418,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               const Text(
                 'Berikut adalah daftar kebutuhan yang sangat dibutuhkan oleh Oma & Opa di panti',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: Colors.white,
                   height: 1.4,
@@ -443,7 +459,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                 Text(
                   'Donasi Sekarang',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -465,6 +481,13 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.9),
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,7 +495,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
           Text(
             'Tingkat Prioritas:',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: Colors.grey[700],
@@ -507,7 +530,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
         Text(
           label,
           style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             fontSize: 11,
             color: Colors.grey[700],
           ),
@@ -541,6 +564,13 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: priorityColor.withOpacity(0.3), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -568,7 +598,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                           child: Text(
                             need['item'],
                             style: const TextStyle(
-                              fontFamily: AppTextStyles.fontFamily,
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: AppColors.darkBlue,
@@ -584,7 +614,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                           child: Text(
                             priorityText,
                             style: TextStyle(
-                              fontFamily: AppTextStyles.fontFamily,
+                              fontFamily: 'Poppins',
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: priorityColor,
@@ -597,7 +627,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                     Text(
                       need['size'],
                       style: TextStyle(
-                        fontFamily: AppTextStyles.fontFamily,
+                        fontFamily: 'Poppins',
                         fontSize: 12,
                         color: Colors.grey[600],
                       ),
@@ -619,7 +649,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                   Text(
                     'Terkumpul: ${need['current']} dari ${need['target']}',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[700],
@@ -628,7 +658,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                   Text(
                     '${(progress * 100).toInt()}%',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: priorityColor,
@@ -677,6 +707,13 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.95),
             borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -699,7 +736,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                   const Text(
                     'Formulir Donasi Barang',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.darkBlue,
@@ -711,7 +748,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               Text(
                 'Isi formulir di bawah ini untuk mengirimkan donasi barang Anda',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: Colors.grey[600],
                   height: 1.4,
@@ -753,7 +790,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
                 Text(
                   'Kirim Donasi',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -781,6 +818,13 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -792,7 +836,7 @@ class _DonationGoodsPageState extends State<DonationGoodsPage> {
               Text(
                 label,
                 style: const TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.darkBlue,

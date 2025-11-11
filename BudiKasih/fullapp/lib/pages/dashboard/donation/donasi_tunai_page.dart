@@ -21,6 +21,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
   final TextEditingController _nominal = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
   File? _buktiTransfer;
+  //1
   final ImagePicker picker = ImagePicker();
   int _selectedIndex = 1;
   String _selectedMethod = 'transfer';
@@ -31,6 +32,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
     {'bank': 'BNI', 'number': '1122334455', 'name': 'Yayasan Panti Wredha BDK'},
   ];
 
+// 2
   Future<void> _pickImage() async {
     final XFile? file = await picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
@@ -81,7 +83,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
             const Text(
               'Terima Kasih!',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: AppColors.darkBlue,
@@ -92,7 +94,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               'Donasi tunai Anda telah kami terima dan sedang dalam proses verifikasi.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 color: Colors.grey[700],
                 height: 1.5,
@@ -113,7 +115,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                     child: Text(
                       'Tim kami akan mengonfirmasi melalui WhatsApp dalam 1x24 jam.',
                       style: TextStyle(
-                        fontFamily: AppTextStyles.fontFamily,
+                        fontFamily: 'Poppins',
                         fontSize: 12,
                         color: Colors.grey[700],
                         height: 1.4,
@@ -142,7 +144,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                 child: const Text(
                   'Kembali ke Beranda',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                     color: AppColors.darkBlue,
                   ),
@@ -215,7 +217,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               const Text(
                 'Pilih Jenis Donasi',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -225,7 +227,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               Text(
                 'Setiap bantuan Anda sangat berarti',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: Colors.grey[600],
                 ),
@@ -303,7 +305,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: color,
@@ -371,7 +373,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                             child: Text(
                               'Donasi Tunai',
                               style: TextStyle(
-                                fontFamily: AppTextStyles.fontFamily,
+                                fontFamily: 'Poppins',
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -384,7 +386,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                       const Text(
                         'Setiap rupiah yang Anda berikan akan membantu kesejahteraan Oma & Opa',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 13,
                           color: Colors.white,
                           height: 1.4,
@@ -468,7 +470,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
             Text(
               label,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 color: isSelected ? AppColors.primaryBlue : Colors.grey[600],
@@ -505,7 +507,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               const Text(
                 'Rekening Tujuan',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -545,7 +547,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                 child: Text(
                   bank['bank']!,
                   style: const TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
@@ -565,7 +567,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
           Text(
             bank['number']!,
             style: const TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: AppColors.darkBlue,
@@ -576,7 +578,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
           Text(
             'A.n. ${bank['name']}',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 12,
               color: Colors.grey[700],
             ),
@@ -611,7 +613,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               const Text(
                 'Scan QRIS',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -651,7 +653,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                       Text(
                         'QRIS Code',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 14,
                           color: Colors.grey[600],
                           fontWeight: FontWeight.w600,
@@ -661,7 +663,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                       Text(
                         '(Coming Soon)',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 11,
                           color: Colors.grey[500],
                         ),
@@ -684,7 +686,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                       Text(
                         'Scan dengan aplikasi e-wallet',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 11,
                           color: Colors.blue.shade700,
                         ),
@@ -699,7 +701,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
           Text(
             'Mendukung semua e-wallet',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 12,
               color: Colors.grey[600],
             ),
@@ -733,7 +735,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
       child: Text(
         name,
         style: TextStyle(
-          fontFamily: AppTextStyles.fontFamily,
+          fontFamily: 'Poppins',
           fontSize: 10,
           fontWeight: FontWeight.bold,
           color: color,
@@ -766,7 +768,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               const Text(
                 'Informasi Donatur',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -783,7 +785,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
           const Text(
             'Upload Bukti Transfer',
             style: TextStyle(
-              fontFamily: AppTextStyles.fontFamily,
+              fontFamily: 'Poppins',
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.darkBlue,
@@ -799,6 +801,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.grey[300]!, width: 2),
               ),
+              // 3
               child: _buktiTransfer != null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(12),
@@ -828,7 +831,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                         Text(
                           'Tap untuk memilih foto',
                           style: TextStyle(
-                            fontFamily: AppTextStyles.fontFamily,
+                            fontFamily: 'Poppins',
                             color: Colors.grey[600],
                             fontSize: 14,
                           ),
@@ -837,7 +840,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                         Text(
                           'Screenshot atau foto bukti transfer',
                           style: TextStyle(
-                            fontFamily: AppTextStyles.fontFamily,
+                            fontFamily: 'Poppins',
                             color: Colors.grey[500],
                             fontSize: 11,
                           ),
@@ -868,7 +871,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                   Text(
                     'Kirim Donasi',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -902,7 +905,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
               Text(
                 label,
                 style: const TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),

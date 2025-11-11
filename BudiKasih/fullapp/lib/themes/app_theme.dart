@@ -10,12 +10,9 @@ class AppTheme {
       backgroundColor: AppColors.primaryBlue,
       elevation: 0,
     ),
-    // Use Inknut Antiqua from google_fonts as the app's default text theme.
-    // This ensures all Material widgets use Inknut Antiqua without adding
-    // the font as an asset. If you prefer to bundle the font instead,
-    // see the alternative instructions in the README or comments.
-    textTheme: GoogleFonts.inknutAntiquaTextTheme(),
-    primaryTextTheme: GoogleFonts.inknutAntiquaTextTheme(),
+    // Ubah ke Poppins
+    textTheme: GoogleFonts.poppinsTextTheme(),
+    primaryTextTheme: GoogleFonts.poppinsTextTheme(),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryBlue,

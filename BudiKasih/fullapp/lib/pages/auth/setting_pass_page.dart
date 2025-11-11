@@ -162,7 +162,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
                             const Text(
                               'Reset Password',
                               style: TextStyle(
-                                fontFamily: AppTextStyles.fontFamily,
+                                fontFamily: 'Poppins',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -173,7 +173,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
                               _getSubtitle(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontFamily: AppTextStyles.fontFamily,
+                                fontFamily: 'Poppins',
                                 fontSize: 14,
                                 color: Colors.white.withOpacity(0.8),
                                 height: 1.4,
@@ -273,7 +273,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
                 : Text(
                     '$stepNumber',
                     style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                      fontFamily: 'Poppins',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: isActive ? AppColors.primaryBlue : Colors.white,
@@ -285,7 +285,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
         Text(
           label,
           style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             fontSize: 12,
             color: isActive ? Colors.white : Colors.white.withOpacity(0.6),
             fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
@@ -346,7 +346,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
             child: const Text(
               'Kirim Kode',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -376,7 +376,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
             Text(
               'Tidak menerima kode? ',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 13,
                 color: Colors.grey[600],
               ),
@@ -388,7 +388,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
               child: const Text(
                 'Kirim Ulang',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: AppColors.primaryBlue,
                   fontWeight: FontWeight.bold,
@@ -414,7 +414,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
             child: const Text(
               'Verifikasi',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -485,7 +485,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
             child: const Text(
               'Simpan Perubahan',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -500,7 +500,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
     return Text(
       text,
       style: const TextStyle(
-        fontFamily: AppTextStyles.fontFamily,
+        fontFamily: 'Poppins',
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.darkBlue,

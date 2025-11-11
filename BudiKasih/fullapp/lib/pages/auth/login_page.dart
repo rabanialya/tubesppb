@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
-// text_styles removed: relying on global theme via GoogleFonts
 import '../../widgets/custom_input.dart';
 import '../../widgets/custom_button.dart';
 

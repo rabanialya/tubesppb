@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const Text(
                 'Pilih Jenis Donasi',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 'Setiap bantuan Anda sangat berarti',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 13,
                   color: Colors.grey[600],
                 ),
@@ -143,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: color,
@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const Text(
               'Konfirmasi Logout',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: AppColors.darkBlue,
@@ -179,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
         content: const Text(
           'Apakah Anda yakin ingin keluar dari akun?',
           style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             fontSize: 14,
             color: Colors.black87,
             height: 1.5,
@@ -191,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Text(
               'Batal',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w600,
               ),
@@ -212,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: const Text(
               'Logout',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -259,7 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Text(
                   'Edit Profil',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: AppColors.darkBlue,
@@ -302,7 +302,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: const Text(
                   'Simpan Perubahan',
                   style: TextStyle(
-                    fontFamily: AppTextStyles.fontFamily,
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -326,7 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Text(
               label,
               style: const TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: AppColors.darkBlue,
@@ -385,7 +385,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 title,
                 style: const TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -397,7 +397,7 @@ class _ProfilePageState extends State<ProfilePage> {
         content: Text(
           content,
           style: const TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             fontSize: 14,
             color: Colors.black87,
             height: 1.6,
@@ -409,7 +409,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: const Text(
               'Tutup',
               style: TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -450,7 +450,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 title,
                 style: const TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                   color: Colors.black87,
@@ -530,7 +530,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Text(
                         'Isabell Conklin',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -540,7 +540,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(
                         'isabell@example.com',
                         style: TextStyle(
-                          fontFamily: AppTextStyles.fontFamily,
+                          fontFamily: 'Poppins',
                           fontSize: 14,
                           color: Colors.white.withOpacity(0.9),
                         ),

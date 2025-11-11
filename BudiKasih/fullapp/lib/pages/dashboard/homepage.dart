@@ -250,7 +250,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 'Halo, Sahabat BudiKasih!',
                 style: TextStyle(
-                  fontFamily: AppTextStyles.fontFamily,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.darkBlue,
@@ -283,7 +283,7 @@ class _HomePageState extends State<HomePage> {
         Text(
           title,
           style: const TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+            fontFamily: 'Poppins',
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: AppColors.darkBlue,
@@ -322,7 +322,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               title,
               style: const TextStyle(
-                fontFamily: AppTextStyles.fontFamily,
+                fontFamily: 'Poppins',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: AppColors.darkBlue,

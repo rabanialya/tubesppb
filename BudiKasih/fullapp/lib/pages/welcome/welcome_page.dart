@@ -96,7 +96,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                         Text(
                           'BudiKasih',
                           style: TextStyle(
-                            fontFamily: AppTextStyles.fontFamily,
+                            fontFamily: 'Poppins',
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -141,7 +141,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             'Berbagi Kasih untuk\nOma & Opa',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: AppTextStyles.fontFamily,
+                              fontFamily: 'Poppins',
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -165,7 +165,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                               'Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontFamily: AppTextStyles.fontFamily,
+                                fontFamily: 'Poppins',
                                 fontSize: 15,
                                 color: Colors.white,
                                 height: 1.6,
@@ -214,7 +214,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                                 Text(
                                   'Mulai Berbagi',
                                   style: TextStyle(
-                                    fontFamily: AppTextStyles.fontFamily,
+                                    fontFamily: 'Poppins',
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.5,
@@ -241,7 +241,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             Text(
                               'Mudah, Aman, dan Transparan',
                               style: TextStyle(
-                                fontFamily: AppTextStyles.fontFamily,
+                                fontFamily: 'Poppins',
                                 fontSize: 13,
                                 color: Colors.white.withOpacity(0.8),
                               ),

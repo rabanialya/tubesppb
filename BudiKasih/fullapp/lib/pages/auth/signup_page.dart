@@ -279,7 +279,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Text(
       text,
       style: const TextStyle(
-        fontFamily: AppTextStyles.fontFamily,
+        fontFamily: 'Poppins',
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.darkBlue,
