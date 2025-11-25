@@ -88,22 +88,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       const LogoCircle(),
                       const SizedBox(height: 20),
-                      const Text(
-                        'Buat Akun Baru',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Text('Buat Akun Baru', style: AppTextStyles.titleWhite.copyWith(fontSize: 28)),
                       const SizedBox(height: 8),
-                      Text(
-                        'Bergabunglah dengan kami',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white.withOpacity(0.8),
-                        ),
-                      ),
+                      Text('Bergabunglah dengan kami', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, color: Colors.white.withOpacity(0.8))),
                       const SizedBox(height: 36),
 
                       // Form Card
@@ -201,13 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                   elevation: 2,
                                 ),
-                                child: const Text(
-                                  'Daftar',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                child: Text('Daftar', style: AppTextStyles.body.copyWith(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                               ),
                             ),
                           ],
@@ -218,24 +199,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Sudah punya akun? ',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 14,
-                            ),
-                          ),
+                          Text('Sudah punya akun? ', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, color: Colors.white.withOpacity(0.9))),
                           GestureDetector(
                             onTap: () => Navigator.pushReplacementNamed(context, '/login'),
-                            child: const Text(
-                              'Masuk',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
+                            child: Text('Masuk', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: Colors.white)),
                           ),
                         ],
                       ),
@@ -251,14 +218,6 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildFieldLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: AppColors.darkBlue,
-      ),
-    );
+    return Text(text, style: AppTextStyles.body.copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkBlue));
   }
 }

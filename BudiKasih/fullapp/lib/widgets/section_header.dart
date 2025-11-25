@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -24,15 +25,7 @@ class SectionHeader extends StatelessWidget {
           child: Icon(icon, color: AppColors.primaryBlue, size: 20),
         ),
         const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColors.darkBlue,
-          ),
-        ),
+        Text(title, style: AppTextStyles.heading.copyWith(fontSize: 18, color: AppColors.darkBlue)),
       ],
     );
   }

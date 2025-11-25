@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 // Function helper untuk menampilkan modal donasi secara konsisten
 void showDonationModal(BuildContext context) {
@@ -33,25 +34,10 @@ void showDonationModal(BuildContext context) {
               ),
               const SizedBox(height: 20),
               // Title
-              const Text(
-                'Pilih Jenis Donasi',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkBlue,
-                ),
-              ),
+              Text('Pilih Jenis Donasi', style: AppTextStyles.heading.copyWith(fontSize: 20, color: AppColors.darkBlue)),
               const SizedBox(height: 8),
               // Subtitle
-              Text(
-                'Setiap bantuan Anda sangat berarti',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 13,
-                  color: Colors.grey[600],
-                ),
-              ),
+              Text('Setiap bantuan Anda sangat berarti', style: AppTextStyles.body.copyWith(fontSize: 13, color: Colors.grey[600])),
               const SizedBox(height: 24),
               // Donation options
               Row(
@@ -135,17 +121,7 @@ class DonationOptionCard extends StatelessWidget {
               child: Icon(icon, color: Colors.white, size: 32),
             ),
             const SizedBox(height: 12),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: color,
-                height: 1.3,
-              ),
-            ),
+            Text(label, textAlign: TextAlign.center, style: AppTextStyles.body.copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: color, height: 1.3)),
           ],
         ),
       ),

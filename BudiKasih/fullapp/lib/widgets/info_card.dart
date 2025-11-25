@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class InfoCard extends StatelessWidget {
   final IconData icon;
@@ -28,26 +29,11 @@ class InfoCard extends StatelessWidget {
             children: [
               Icon(icon, color: AppColors.primaryBlue),
               const SizedBox(width: 10),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkBlue,
-                ),
-              ),
+              Text(title, style: AppTextStyles.heading.copyWith(fontSize: 16, color: AppColors.darkBlue)),
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            content,
-            style: const TextStyle(
-              height: 1.5,
-              color: Colors.black87,
-              fontSize: 14,
-            ),
-          ),
+          Text(content, style: AppTextStyles.body.copyWith(height: 1.5, color: Colors.black87, fontSize: 14)),
         ],
       ),
     );

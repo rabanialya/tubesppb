@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
+
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
@@ -92,23 +93,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text(
-                          'BudiKasih',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: 1.2,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.3),
-                                offset: const Offset(0, 2),
-                                blurRadius: 4,
-                              ),
-                            ],
-                          ),
-                        ),
+                        Text('BudiKasih', style: AppTextStyles.titleWhite.copyWith(fontSize: 26, letterSpacing: 1.2, shadows: [Shadow(color: Colors.black.withOpacity(0.3), offset: const Offset(0,2), blurRadius: 4)])),
                       ],
                     ),
                   ),
@@ -136,17 +121,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                           const SizedBox(height: 24),
                           
                           // Title
-                          const Text(
-                            'Berbagi Kasih untuk\nOma & Opa',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              height: 1.3,
-                            ),
-                          ),
+                          Text('Berbagi Kasih untuk\nOma & Opa', textAlign: TextAlign.center, style: AppTextStyles.titleWhite.copyWith(fontSize: 32, height: 1.3)),
                           const SizedBox(height: 16),
                           
                           // Subtitle with Card Background
@@ -160,16 +135,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                                 width: 1,
                               ),
                             ),
-                            child: const Text(
-                              'Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 15,
-                                color: Colors.white,
-                                height: 1.6,
-                              ),
-                            ),
+                            child: Text('Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.', textAlign: TextAlign.center, style: AppTextStyles.titleWhite.copyWith(fontSize: 15, height: 1.6)),
                           ),
                         ],
                       ),
@@ -209,18 +175,10 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Text(
-                                  'Mulai Berbagi',
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Icon(Icons.arrow_forward, size: 20),
+                              children: [
+                                Text('Mulai Berbagi', style: AppTextStyles.body.copyWith(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.arrow_forward, size: 20),
                               ],
                             ),
                           ),
@@ -237,14 +195,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                               size: 16,
                             ),
                             const SizedBox(width: 8),
-                            Text(
-                              'Mudah, Aman, dan Transparan',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 13,
-                                color: Colors.white.withOpacity(0.8),
-                              ),
-                            ),
+                            Text('Mudah, Aman, dan Transparan', style: AppTextStyles.titleWhite.copyWith(fontSize: 13, color: Colors.white.withOpacity(0.8))),
                           ],
                         ),
                       ],

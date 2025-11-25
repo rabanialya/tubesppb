@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class TransferBankCard extends StatelessWidget {
   final String bank;
@@ -38,15 +39,7 @@ class TransferBankCard extends StatelessWidget {
                   color: AppColors.primaryBlue,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(
-                  bank,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
+                child: Text(bank, style: AppTextStyles.body.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
               ),
               const Spacer(),
               IconButton(
@@ -58,25 +51,9 @@ class TransferBankCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            number,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.darkBlue,
-              letterSpacing: 1.2,
-            ),
-          ),
+          Text(number, style: AppTextStyles.heading.copyWith(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkBlue, letterSpacing: 1.2)),
           const SizedBox(height: 6),
-          Text(
-            'A.n. $name',
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 12,
-              color: Colors.grey[700],
-            ),
-          ),
+          Text('A.n. $name', style: AppTextStyles.body.copyWith(fontSize: 12, color: Colors.grey[700])),
         ],
       ),
     );

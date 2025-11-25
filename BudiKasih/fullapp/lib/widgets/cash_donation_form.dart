@@ -9,7 +9,9 @@ class CashDonationForm extends StatefulWidget {
   final TextEditingController hpController;
   final TextEditingController nominalController;
   final TextEditingController catatanController;
+  final TextEditingController? tanggalController;
   final VoidCallback onSubmit;
+  final VoidCallback? onPickDate;
 
   const CashDonationForm({
     super.key,
@@ -17,7 +19,9 @@ class CashDonationForm extends StatefulWidget {
     required this.hpController,
     required this.nominalController,
     required this.catatanController,
+    this.tanggalController,
     required this.onSubmit,
+    this.onPickDate,
   });
 
   @override
@@ -63,14 +67,9 @@ class _CashDonationFormState extends State<CashDonationForm> {
                 children: [
                   Icon(Icons.edit_note, color: AppColors.primaryBlue, size: 24),
                   const SizedBox(width: 10),
-                  const Text(
+                  Text(
                     'Informasi Donatur',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.darkBlue,
-                    ),
+                    style: AppTextStyles.heading.copyWith(fontSize: 16, color: AppColors.darkBlue),
                   ),
                 ],
               ),
@@ -95,6 +94,36 @@ class _CashDonationFormState extends State<CashDonationForm> {
                 'Contoh: 100000',
                 keyboardType: TextInputType.number,
               ),
+              const SizedBox(height: 10),
+              // Tanggal (opsional) - show read-only field if controller provided
+              if (widget.tanggalController != null)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.calendar_month, color: AppColors.primaryBlue, size: 18),
+                        const SizedBox(width: 8),
+                        Text('Tanggal', style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: widget.tanggalController,
+                      readOnly: true,
+                      onTap: widget.onPickDate,
+                      decoration: InputDecoration(
+                        hintText: 'DD-MM-YYYY',
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        prefixIcon: Icon(Icons.calendar_today, color: Colors.grey[600]),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                  ],
+                ),
               _buildFormField(
                 'Catatan',
                 widget.catatanController,
@@ -103,15 +132,7 @@ class _CashDonationFormState extends State<CashDonationForm> {
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Upload Bukti Transfer',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.darkBlue,
-                ),
-              ),
+              Text('Upload Bukti Transfer', style: AppTextStyles.body.copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkBlue)),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: _pickImage,
@@ -148,23 +169,9 @@ class _CashDonationFormState extends State<CashDonationForm> {
                           children: [
                             Icon(Icons.add_photo_alternate_outlined, color: Colors.grey[400], size: 48),
                             const SizedBox(height: 12),
-                            Text(
-                              'Tap untuk memilih foto',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Colors.grey[600],
-                                fontSize: 14,
-                              ),
-                            ),
+                            Text('Tap untuk memilih foto', style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.grey[600])),
                             const SizedBox(height: 4),
-                            Text(
-                              'Screenshot atau foto bukti transfer',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Colors.grey[500],
-                                fontSize: 11,
-                              ),
-                            ),
+                            Text('Screenshot atau foto bukti transfer', style: AppTextStyles.body.copyWith(fontSize: 11, color: Colors.grey[500])),
                           ],
                         ),
                 ),
@@ -185,17 +192,10 @@ class _CashDonationFormState extends State<CashDonationForm> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.send, size: 20),
-                      SizedBox(width: 10),
-                      Text(
-                        'Kirim Donasi',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    children: [
+                      const Icon(Icons.send, size: 20),
+                      const SizedBox(width: 10),
+                      Text('Kirim Donasi', style: AppTextStyles.body.copyWith(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                     ],
                   ),
                 ),
@@ -226,22 +226,18 @@ class _CashDonationFormState extends State<CashDonationForm> {
               const SizedBox(width: 6),
               Text(
                 label,
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          TextField(
+              TextField(
             controller: controller,
             maxLines: maxLines,
             keyboardType: keyboardType,
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.grey[400], fontSize: 13),
+              hintStyle: AppTextStyles.body.copyWith(color: Colors.grey[400], fontSize: 13),
               filled: true,
               fillColor: Colors.grey[50],
               contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),

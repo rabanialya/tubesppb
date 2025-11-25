@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class DonationMethodSelector extends StatelessWidget {
   final String selectedMethod;
@@ -56,15 +57,7 @@ class DonationMethodSelector extends StatelessWidget {
           children: [
             Icon(icon, color: isSelected ? AppColors.primaryBlue : Colors.grey[600], size: 20),
             const SizedBox(width: 8),
-            Text(
-              label,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? AppColors.primaryBlue : Colors.grey[600],
-              ),
-            ),
+            Text(label, style: AppTextStyles.body.copyWith(fontSize: 14, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? AppColors.primaryBlue : Colors.grey[600])),
           ],
         ),
       ),

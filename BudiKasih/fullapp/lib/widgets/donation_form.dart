@@ -11,6 +11,9 @@ class DonationForm extends StatelessWidget {
   final TextEditingController catatanController;
   final VoidCallback onSubmit;
 
+  // ⬅️ Tambahan fungsi untuk date picker
+  final VoidCallback? onPickDate;
+
   const DonationForm({
     super.key,
     required this.namaController,
@@ -20,6 +23,7 @@ class DonationForm extends StatelessWidget {
     required this.tanggalController,
     required this.catatanController,
     required this.onSubmit,
+    this.onPickDate, // ⬅️ tambahan
   });
 
   @override
@@ -29,15 +33,22 @@ class DonationForm extends StatelessWidget {
         // Header
         Container(
           padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Form Donasi Barang', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkBlue)),
+              Text(
+                'Form Donasi Barang',
+                style: AppTextStyles.heading.copyWith(fontSize: 16, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 12),
 
               // Nama
-              Text('Nama', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              Text(
+                'Nama',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: namaController,
@@ -45,14 +56,19 @@ class DonationForm extends StatelessWidget {
                   hintText: 'Nama lengkap',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
               const SizedBox(height: 12),
 
               // HP
-              Text('Nomor HP', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              Text(
+                'Nomor HP',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: hpController,
@@ -61,14 +77,19 @@ class DonationForm extends StatelessWidget {
                   hintText: '08xx xxxx xxxx',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
               const SizedBox(height: 12),
 
               // Jenis Barang
-              Text('Jenis Barang', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              Text(
+                'Jenis Barang',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: barangController,
@@ -76,14 +97,19 @@ class DonationForm extends StatelessWidget {
                   hintText: 'Contoh: Pampers Dewasa Size L',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
               const SizedBox(height: 12),
 
               // Jumlah
-              Text('Jumlah', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              Text(
+                'Jumlah',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: jumlahController,
@@ -92,29 +118,42 @@ class DonationForm extends StatelessWidget {
                   hintText: 'Jumlah barang',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
               const SizedBox(height: 12),
 
-              // Tanggal
-              Text('Tanggal', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              // Tanggal — sudah ada DatePicker
+              Text(
+                'Tanggal',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: tanggalController,
+                readOnly: true, // ⬅️ user wajib pilih dari datepicker
+                onTap: onPickDate, // ⬅️ panggil datepicker
                 decoration: InputDecoration(
                   hintText: 'DD-MM-YYYY',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  suffixIcon: const Icon(Icons.calendar_month), // ⬅️ icon kalender
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
               const SizedBox(height: 12),
 
               // Catatan
-              Text('Catatan (opsional)', style: const TextStyle(color: AppColors.darkBlue, fontWeight: FontWeight.w600)),
+              Text(
+                'Catatan (opsional)',
+                style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
+              ),
               const SizedBox(height: 8),
               TextField(
                 controller: catatanController,
@@ -123,8 +162,10 @@ class DonationForm extends StatelessWidget {
                   hintText: 'Catatan untuk admin',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  border:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
 
@@ -136,9 +177,10 @@ class DonationForm extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryBlue,
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                   ),
-                  child: const Text('Kirim Donasi', style: TextStyle(fontWeight: FontWeight.w600)),
+                  child: Text('Kirim Donasi', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
                 ),
               ),
             ],

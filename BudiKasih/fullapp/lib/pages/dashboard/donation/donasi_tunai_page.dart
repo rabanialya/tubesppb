@@ -23,6 +23,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
   final TextEditingController _nama = TextEditingController();
   final TextEditingController _hp = TextEditingController();
   final TextEditingController _nominal = TextEditingController();
+  final TextEditingController _tanggal = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
   
   File? _buktiTransferFromForm;
@@ -51,6 +52,22 @@ class _DonationCashPageState extends State<DonationCashPage> {
       ),
     );
   }
+
+  Future<void> _pickDate() async {
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2020),
+    lastDate: DateTime(2035),
+  );
+
+  if (picked != null) {
+    setState(() {
+      _tanggal.text = "${picked.day}-${picked.month}-${picked.year}";
+    });
+  }
+}
+
 
   Future<void> _submit() async {
     if (_nama.text.trim().isEmpty) {
@@ -105,25 +122,15 @@ class _DonationCashPageState extends State<DonationCashPage> {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'Terima Kasih!',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: AppColors.darkBlue,
-              ),
+              style: AppTextStyles.heading.copyWith(fontSize: 22, color: AppColors.darkBlue),
             ),
             const SizedBox(height: 12),
             Text(
               'Donasi tunai Anda telah kami terima dan sedang dalam proses verifikasi.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                color: Colors.grey[700],
-                height: 1.5,
-              ),
+              style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.grey[700], height: 1.5),
             ),
             const SizedBox(height: 8),
             Container(
@@ -139,12 +146,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                   Expanded(
                     child: Text(
                       'Tim kami akan mengonfirmasi melalui WhatsApp dalam 1x24 jam.',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                        color: Colors.grey[700],
-                        height: 1.4,
-                      ),
+                      style: AppTextStyles.body.copyWith(fontSize: 12, color: Colors.grey[700], height: 1.4),
                     ),
                   ),
                 ],
@@ -166,13 +168,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
-                  'Kembali ke Beranda',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Text('Kembali ke Beranda', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
               ),
             ),
           ],
@@ -220,19 +216,11 @@ class _DonationCashPageState extends State<DonationCashPage> {
             children: [
               Icon(Icons.account_balance, color: AppColors.primaryBlue, size: 24),
               const SizedBox(width: 10),
-              const Text(
-                'Rekening Tujuan',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkBlue,
-                ),
-              ),
+              Text('Rekening Tujuan', style: AppTextStyles.heading.copyWith(fontSize: 16, color: AppColors.darkBlue)),
             ],
           ),
-          const SizedBox(height: 16),
-          ..._bankAccounts.map((bank) {
+              const SizedBox(height: 16),
+              ..._bankAccounts.map((bank) {
             return TransferBankCard(
               bank: bank['bank']!,
               number: bank['number']!,
@@ -246,7 +234,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
   }
 
   Widget _buildQrisSection() {
-    return QrisSection(qrisAssetPath: 'assets/img/qris.jpg');
+  return QrisSection(qrisAssetPath: 'assets/img/qris.jpg');
   }
 
   Widget _buildFormSection() {
@@ -254,7 +242,9 @@ class _DonationCashPageState extends State<DonationCashPage> {
       namaController: _nama,
       hpController: _hp,
       nominalController: _nominal,
+      tanggalController: _tanggal,
       catatanController: _catatan,
+      onPickDate: _pickDate,
       onSubmit: _submit,
     );
   }
@@ -264,6 +254,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
     _nama.dispose();
     _hp.dispose();
     _nominal.dispose();
+    _tanggal.dispose();
     _catatan.dispose();
     super.dispose();
   }
@@ -316,29 +307,19 @@ class _DonationCashPageState extends State<DonationCashPage> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
-                            child: Text(
-                              'Donasi Tunai',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                                      Expanded(
+                                        child: Text(
+                                          'Donasi Tunai',
+                                          style: AppTextStyles.titleWhite.copyWith(fontSize: 20),
+                                        ),
+                                      ),
                         ],
                       ),
                       const SizedBox(height: 12),
-                      const Text(
-                        'Setiap rupiah yang Anda berikan akan membantu kesejahteraan Oma & Opa',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 13,
-                          color: Colors.white,
-                          height: 1.4,
-                        ),
-                      ),
+                                  Text(
+                                    'Setiap rupiah yang Anda berikan akan membantu kesejahteraan Oma & Opa',
+                                    style: AppTextStyles.titleWhite.copyWith(fontSize: 13),
+                                  ),
                     ],
                   ),
                 ),

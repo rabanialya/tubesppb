@@ -1,144 +1,119 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class QrisSection extends StatelessWidget {
   final String qrisAssetPath;
 
-  const QrisSection({super.key, required this.qrisAssetPath});
+  QrisSection({
+    super.key,
+    required this.qrisAssetPath,
+  });
+
+  Future<void> _downloadQris(BuildContext context) async {
+    // Capture messenger before async gaps to avoid using BuildContext after await
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      // Load asset
+      final byteData = await rootBundle.load(qrisAssetPath);
+
+      // Save to download folder
+      final directory = await getTemporaryDirectory();
+      final filePath = '${directory.path}/qris.jpg';
+      final file = File(filePath);
+
+      await file.writeAsBytes(byteData.buffer.asUint8List());
+
+      messenger.showSnackBar(
+        SnackBar(
+          content: const Text("QRIS berhasil diunduh!"),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+    } catch (e) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: const Text("Gagal mengunduh QRIS"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: const ValueKey('qris'),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 10,
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.qr_code_2, color: AppColors.primaryBlue, size: 24),
-              const SizedBox(width: 10),
-              const Text(
-                'Scan QRIS',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.darkBlue,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey[300]!, width: 2),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                // use provided asset
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: AssetImage(qrisAssetPath),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.info_outline, color: Colors.blue.shade700, size: 16),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Scan dengan aplikasi e-wallet',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 11,
-                          color: Colors.blue.shade700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          Text(
+            "Scan QRIS",
+            style: AppTextStyles.heading.copyWith(fontSize: 18, color: AppColors.darkBlue),
           ),
           const SizedBox(height: 16),
-          Text(
-            'Mendukung semua e-wallet',
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 12,
-              color: Colors.grey[600],
+
+          // QR Image
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: Image.asset(
+              qrisAssetPath,
+              width: 220,
+              height: 220,
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildWalletIcon('GoPay', Colors.green.shade600),
-              const SizedBox(width: 12),
-              _buildWalletIcon('OVO', Colors.purple.shade600),
-              const SizedBox(width: 12),
-              _buildWalletIcon('DANA', Colors.blue.shade600),
-              const SizedBox(width: 12),
-              _buildWalletIcon('ShopeePay', Colors.orange.shade600),
-            ],
+
+          const SizedBox(height: 20),
+
+          // Download QRIS Button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () => _downloadQris(context),
+              icon: const Icon(Icons.download),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryBlue,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              label: Text("Download QRIS", style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          Text(
+            "Silakan scan QRIS atau unduh gambarnya. Setelah membayar, upload bukti pembayaran pada form di bawah.",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.body.copyWith(fontSize: 12, color: Colors.grey[600], height: 1.4),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildWalletIcon(String name, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
-      ),
-      child: Text(
-        name,
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
       ),
     );
   }
