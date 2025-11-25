@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
+import '../../widgets/logo_circle.dart';
+import '../../widgets/input_label.dart';
+import '../../widgets/custom_text_field.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -18,7 +21,6 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _obscureConfirm = true;
 
   void _register() {
-    // Validation
     if (_name.text.trim().isEmpty) {
       _showSnackBar('Nama lengkap harus diisi', Colors.orange);
       return;
@@ -40,7 +42,6 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
-    // Success
     Navigator.popAndPushNamed(context, '/login');
     Future.delayed(const Duration(milliseconds: 300), () {
       _showSnackBar('Akun berhasil dibuat! Silakan login', Colors.green);
@@ -85,27 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Logo & Title Section
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
-                            width: 2,
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.asset(
-                            'assets/img/logoBK.png',
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
+                      const LogoCircle(),
                       const SizedBox(height: 20),
                       const Text(
                         'Buat Akun Baru',
@@ -142,20 +123,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Name Input
-                            _buildInputLabel('Nama Lengkap'),
+                            _buildFieldLabel('Nama Lengkap'),
                             const SizedBox(height: 8),
-                            _buildTextField(
+                            CustomTextField(
                               controller: _name,
                               hint: 'Masukkan nama lengkap',
                               icon: Icons.person_outline,
                             ),
                             const SizedBox(height: 16),
 
-                            // Email Input
-                            _buildInputLabel('Email'),
+                            _buildFieldLabel('Email'),
                             const SizedBox(height: 8),
-                            _buildTextField(
+                            CustomTextField(
                               controller: _email,
                               hint: 'Masukkan email anda',
                               icon: Icons.email_outlined,
@@ -163,10 +142,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             const SizedBox(height: 16),
 
-                            // Password Input
-                            _buildInputLabel('Password'),
+                            _buildFieldLabel('Password'),
                             const SizedBox(height: 8),
-                            _buildTextField(
+                            CustomTextField(
                               controller: _pass,
                               hint: 'Minimal 6 karakter',
                               icon: Icons.lock_outline,
@@ -187,10 +165,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             const SizedBox(height: 16),
 
-                            // Confirm Password Input
-                            _buildInputLabel('Konfirmasi Password'),
+                            _buildFieldLabel('Konfirmasi Password'),
                             const SizedBox(height: 8),
-                            _buildTextField(
+                            CustomTextField(
                               controller: _confirm,
                               hint: 'Ulangi password anda',
                               icon: Icons.lock_outline,
@@ -211,7 +188,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             const SizedBox(height: 24),
 
-                            // Register Button
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
@@ -239,7 +215,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Login Link
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -275,7 +250,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildInputLabel(String text) {
+  Widget _buildFieldLabel(String text) {
     return Text(
       text,
       style: const TextStyle(
@@ -283,41 +258,6 @@ class _SignUpPageState extends State<SignUpPage> {
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: AppColors.darkBlue,
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hint,
-    required IconData icon,
-    bool obscure = false,
-    Widget? suffixIcon,
-    TextInputType? keyboardType,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscure,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        hintText: hint,
-        prefixIcon: Icon(icon, color: AppColors.primaryBlue),
-        suffixIcon: suffixIcon,
-        filled: true,
-        fillColor: Colors.grey[50],
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey[300]!),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey[300]!),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryBlue, width: 2),
-        ),
       ),
     );
   }

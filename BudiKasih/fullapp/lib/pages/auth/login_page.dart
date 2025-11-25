@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
-import '../../widgets/custom_input.dart';
-import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/logo_circle.dart';
+import '../../widgets/input_label.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,26 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       // Logo & Title Section
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
-                            width: 2,
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.asset(
-                            'assets/img/logoBK.png',
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
+                      const LogoCircle(),
                       const SizedBox(height: 20),
                       const Text(
                         'Selamat Datang',
@@ -100,96 +82,36 @@ class _LoginPageState extends State<LoginPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Email Input with Icon
-                            _buildInputLabel('Email'),
+                            const InputLabel('Email'),
                             const SizedBox(height: 8),
-                            TextField(
+                            CustomTextField(
                               controller: emailController,
+                              hint: 'Masukkan email anda',
+                              icon: Icons.email_outlined,
                               keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: 'Masukkan email anda',
-                                prefixIcon: const Icon(
-                                  Icons.email_outlined,
-                                  color: AppColors.primaryBlue,
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey[50],
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 16,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.primaryBlue,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
                             ),
                             const SizedBox(height: 20),
 
                             // Password Input with Toggle
-                            _buildInputLabel('Password'),
+                            const InputLabel('Password'),
                             const SizedBox(height: 8),
-                            TextField(
+                            CustomTextField(
                               controller: passwordController,
-                              obscureText: _obscurePassword,
-                              decoration: InputDecoration(
-                                hintText: 'Masukkan password anda',
-                                prefixIcon: const Icon(
-                                  Icons.lock_outline,
-                                  color: AppColors.primaryBlue,
+                              hint: 'Masukkan password anda',
+                              icon: Icons.lock_outline,
+                              obscure: _obscurePassword,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: Colors.grey[600],
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscurePassword
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility_outlined,
-                                    color: Colors.grey[600],
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscurePassword = !_obscurePassword;
-                                    });
-                                  },
-                                ),
-                                filled: true,
-                                fillColor: Colors.grey[50],
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 16,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.primaryBlue,
-                                    width: 2,
-                                  ),
-                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
                               ),
                             ),
 
@@ -199,14 +121,14 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextButton(
                                 onPressed: () =>
                                     Navigator.pushNamed(context, '/setting_pass'),
-                                  child: Text(
-                                    'Lupa Password?',
-                                    style: TextStyle(
-                                      color: AppColors.primaryBlue,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 13,
-                                    ),
+                                child: Text(
+                                  'Lupa Password?',
+                                  style: TextStyle(
+                                    color: AppColors.primaryBlue,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
                                   ),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -272,17 +194,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildInputLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: AppColors.darkBlue,
       ),
     );
   }
