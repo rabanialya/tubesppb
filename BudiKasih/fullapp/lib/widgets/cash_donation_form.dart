@@ -114,14 +114,26 @@ class _CashDonationFormState extends State<CashDonationForm> {
                       onTap: widget.onPickDate,
                       decoration: InputDecoration(
                         hintText: 'DD-MM-YYYY',
+                        hintStyle: AppTextStyles.body.copyWith(color: Colors.grey[400], fontSize: 13),
                         filled: true,
                         fillColor: Colors.grey[50],
                         prefixIcon: Icon(Icons.calendar_today, color: Colors.grey[600]),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: AppColors.primaryBlue, width: 2),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                   ],
                 ),
               _buildFormField(

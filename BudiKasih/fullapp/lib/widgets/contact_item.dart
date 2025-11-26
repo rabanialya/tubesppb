@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class ContactItem extends StatelessWidget {
   final IconData icon;

@@ -4,6 +4,7 @@ import '../../../widgets/app_bottom_nav.dart';
 import '../../../widgets/bg_container.dart';
 import '../../../widgets/donation_modal.dart';
 import '../../../themes/colors.dart';
+import '../../../themes/text_styles.dart';
 
 // WIDGETS PROFIL
 import '../../../widgets/profile/profile_header.dart';

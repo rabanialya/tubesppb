@@ -3,6 +3,7 @@ import '../../themes/colors.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/logo_circle.dart';
 import '../../widgets/input_label.dart';
+import '../../themes/text_styles.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,25 +44,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Logo & Title Section
                       const LogoCircle(),
                       const SizedBox(height: 20),
-                      const Text(
-                        'Selamat Datang',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Text('Selamat Datang', style: AppTextStyles.titleWhite.copyWith(fontSize: 28)),
                       const SizedBox(height: 8),
-                      Text(
-                        'Masuk untuk melanjutkan',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white.withOpacity(0.8),
-                        ),
-                      ),
+                      Text('Masuk untuk melanjutkan', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, color: Colors.white.withOpacity(0.8))),
                       const SizedBox(height: 36),
 
                       // Form Card
@@ -166,35 +153,21 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Belum punya akun? ',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 14,
-                            ),
-                          ),
+                          Text('Belum punya akun? ', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, color: Colors.white.withOpacity(0.9))),
                           GestureDetector(
                             onTap: () => Navigator.pushNamed(context, '/signup'),
-                            child: const Text(
-                              'Daftar Sekarang',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
+                            child: Text('Daftar', style: AppTextStyles.titleWhite.copyWith(fontSize: 14, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, color: Colors.white)),
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ),
           ),
         ),
       ),
-    );
+    )
+  );
   }
 }

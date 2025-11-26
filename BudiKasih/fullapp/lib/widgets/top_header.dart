@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../themes/colors.dart';
+import '../themes/text_styles.dart';
 
 class TopHeader extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onNotification;
@@ -52,7 +53,7 @@ class TopHeader extends StatelessWidget implements PreferredSizeWidget {
             hintText: 'Cari sesuatu...',
             prefixIcon: Icon(Icons.search, color: Colors.grey),
             border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(vertical: 8),
+            contentPadding: EdgeInsets.symmetric(vertical: 10),
           ),
         ),
       ),

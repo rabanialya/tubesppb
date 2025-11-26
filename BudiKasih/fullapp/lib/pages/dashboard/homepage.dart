@@ -10,6 +10,7 @@ import '../../widgets/info_card.dart';
 import '../../widgets/contact_item.dart';
 import '../../widgets/donation_modal.dart'; // Import modal baru
 import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
