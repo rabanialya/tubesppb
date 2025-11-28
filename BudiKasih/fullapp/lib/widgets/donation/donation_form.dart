@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class DonationForm extends StatelessWidget {
   final TextEditingController namaController;
@@ -11,7 +11,6 @@ class DonationForm extends StatelessWidget {
   final TextEditingController catatanController;
   final VoidCallback onSubmit;
 
-  // ⬅️ Tambahan fungsi untuk date picker
   final VoidCallback? onPickDate;
 
   const DonationForm({
@@ -126,7 +125,6 @@ class DonationForm extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Tanggal — sudah ada DatePicker
               Text(
                 'Tanggal',
                 style: AppTextStyles.body.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.darkBlue),
@@ -134,13 +132,13 @@ class DonationForm extends StatelessWidget {
               const SizedBox(height: 8),
               TextField(
                 controller: tanggalController,
-                readOnly: true, // ⬅️ user wajib pilih dari datepicker
-                onTap: onPickDate, // ⬅️ panggil datepicker
+                readOnly: true, 
+                onTap: onPickDate, 
                 decoration: InputDecoration(
                   hintText: 'DD-MM-YYYY',
                   filled: true,
                   fillColor: Colors.grey[50],
-                  suffixIcon: const Icon(Icons.calendar_month), // ⬅️ icon kalender
+                  suffixIcon: const Icon(Icons.calendar_month),
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   border:

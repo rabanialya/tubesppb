@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../widgets/top_header.dart';
-import '../../widgets/app_bottom_nav.dart';
-import '../../widgets/home_welcome_card.dart';
-import '../../widgets/section_header.dart';
-import '../../widgets/home_carousel.dart';
-import '../../widgets/info_card.dart';
-import '../../widgets/contact_item.dart';
-import '../../widgets/donation_modal.dart'; // Import modal baru
+
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
+import '../../themes/app_theme.dart';
+
+import '../../widgets/reusable/top_header.dart';
+import '../../widgets/reusable/app_bottom_nav.dart';
+import '../../widgets/homepage/home_welcome_card.dart';
+import '../../widgets/homepage/section_header.dart';
+import '../../widgets/homepage/home_carousel.dart';
+import '../../widgets/homepage/info_card.dart';
+import '../../widgets/homepage/contact_item.dart';
+import '../../widgets/donation/donation_modal.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,19 +47,18 @@ class _HomePageState extends State<HomePage> {
     "assets/img/foto7.jpg",
   ];
 
-  // Bottom Navbar Handler - UPDATED
   void _onNavTap(int index) {
     if (index == 0) {
       setState(() => currentIndex = 0);
     } else if (index == 1) {
-      showDonationModal(context); // Gunakan fungsi dari donation_modal.dart
+      showDonationModal(context); 
     } else if (index == 2) {
       Navigator.pushNamed(context, "/profile");
     }
     setState(() => currentIndex = index);
   }
 
-  // Kirim pesan cinta
+  // Kirim pesan
   void _sendMessage() {
     if (_messageController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context)
@@ -134,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                 icon: Icons.menu_book_rounded,
                 title: "Sejarah Panti",
                 content:
-                    "Panti Wredha BudiKasih berdiri sejak tahun 1998 sebagai tempat tinggal dan perawatan lansia yang membutuhkan dukungan dan perhatian.",
+                    "Sejarah yayasan ini dimulai pada tahun 1972 ketika Bapak Lie Hok Tjan (Budi Soedarma) memiliki visi mulia untuk mendirikan sebuah Panti Wredha. Beliau tidak hanya mencetuskan ide ini, tetapi juga menunjukkan keseriusannya dengan bersedia menghibahkan sebagian tanah miliknya yang berlokasi di Kalimanah, Purbalingga. Tanah ini dipersiapkan secara khusus untuk mewujudkan impiannya tersebut.",
               ),
               const SizedBox(height: 30),
 
@@ -167,14 +169,24 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         onPressed: _sendMessage,
-                        icon: const Icon(Icons.send),
+                        icon: const Icon(
+                          Icons.send,
+                          color: Colors.white,    
+                        ),
+                        label: const Text(
+                          "Kirim Pesan",
+                          style: TextStyle(
+                            color: Colors.white,   
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryBlue,
+                          foregroundColor: Colors.white, 
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        label: const Text("Kirim Pesan"),
                       ),
                     ),
                   ],

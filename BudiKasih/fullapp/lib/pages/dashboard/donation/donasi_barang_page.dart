@@ -1,12 +1,16 @@
   import 'package:flutter/material.dart';
-  import '../../../widgets/top_header.dart';
-  import '../../../widgets/app_bottom_nav.dart';
-  import '../../../widgets/bg_container.dart';
+  import 'package:google_fonts/google_fonts.dart';
+
   import '../../../themes/colors.dart';
   import '../../../themes/text_styles.dart';
-  import '../../../widgets/donation_need_card.dart';
-  import '../../../widgets/donation_modal.dart'; // Import modal baru
-  import '../../../widgets/donation_form.dart';
+  import '../../../themes/app_theme.dart';
+  
+  import '../../../widgets/reusable/top_header.dart';
+  import '../../../widgets/reusable/app_bottom_nav.dart';
+  import '../../../widgets/reusable/bg_container.dart';
+  import '../../../widgets/donation/donation_need_card.dart';
+  import '../../../widgets/donation/donation_modal.dart';
+  import '../../../widgets/donation/donation_form.dart';
 
   class DonationGoodsPage extends StatefulWidget {
     const DonationGoodsPage({super.key});
@@ -217,7 +221,7 @@
       if (index == 0) {
         Navigator.pushReplacementNamed(context, '/home');
       } else if (index == 1) {
-        showDonationModal(context); // Gunakan fungsi dari donation_modal.dart
+        showDonationModal(context); 
       } else if (index == 2) {
         Navigator.pushReplacementNamed(context, '/profile');
       }
@@ -249,9 +253,9 @@
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Kebutuhan Saat Ini', style: TextStyle(fontFamily: AppTextStyles.fontFamily, fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                Text('Kebutuhan Saat Ini', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
                 const SizedBox(height: 8),
-                Text('Pilih dan bantu kebutuhan yang paling mendesak untuk panti', style: TextStyle(fontFamily: AppTextStyles.fontFamily, fontSize: 14, color: Colors.white.withOpacity(0.9))),
+                Text('Pilih dan bantu kebutuhan yang paling mendesak untuk panti', style: GoogleFonts.poppins(fontSize: 14, color: Colors.white.withOpacity(0.9)),),
               ],
             ),
           ),
@@ -274,7 +278,7 @@
             child: ElevatedButton(
               onPressed: () => setState(() => _showForm = true),
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryBlue, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-              child: const Text('Donasi Sekarang', style: TextStyle(fontWeight: FontWeight.w600)),
+              child: const Text('Donasi Sekarang', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
             ),
           ),
         ],

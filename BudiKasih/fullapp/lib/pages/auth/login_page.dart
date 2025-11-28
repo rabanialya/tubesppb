@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../themes/colors.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/logo_circle.dart';
-import '../../widgets/input_label.dart';
 import '../../themes/text_styles.dart';
+import '../../../themes/app_theme.dart';
+
+import '../../widgets/auth/custom_text_field.dart';
+import '../../widgets/auth/logo_circle.dart';
+import '../../widgets/auth/input_label.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

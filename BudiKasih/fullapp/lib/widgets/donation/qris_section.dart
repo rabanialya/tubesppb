@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
-import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class QrisSection extends StatelessWidget {
   final String qrisAssetPath;
@@ -14,13 +14,10 @@ class QrisSection extends StatelessWidget {
   });
 
   Future<void> _downloadQris(BuildContext context) async {
-    // Capture messenger before async gaps to avoid using BuildContext after await
     final messenger = ScaffoldMessenger.of(context);
     try {
-      // Load asset
       final byteData = await rootBundle.load(qrisAssetPath);
 
-      // Save to download folder
       final directory = await getTemporaryDirectory();
       final filePath = '${directory.path}/qris.jpg';
       final file = File(filePath);
@@ -30,7 +27,7 @@ class QrisSection extends StatelessWidget {
       messenger.showSnackBar(
         SnackBar(
           content: const Text("QRIS berhasil diunduh!"),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.primaryBlue,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -94,7 +91,7 @@ class QrisSection extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () => _downloadQris(context),
-              icon: const Icon(Icons.download),
+              icon: const Icon(Icons.download, color: Colors.white,),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryBlue,
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -109,7 +106,7 @@ class QrisSection extends StatelessWidget {
           const SizedBox(height: 16),
 
           Text(
-            "Silakan scan QRIS atau unduh gambarnya. Setelah membayar, upload bukti pembayaran pada form di bawah.",
+            "Scan QRIS atau unduh gambarnya. Setelah membayar, upload bukti pembayaran pada form di bawah.",
             textAlign: TextAlign.center,
             style: AppTextStyles.body.copyWith(fontSize: 12, color: Colors.grey[600], height: 1.4),
           ),

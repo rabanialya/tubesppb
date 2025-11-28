@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../widgets/top_header.dart';
-import '../../../widgets/app_bottom_nav.dart';
-import '../../../widgets/bg_container.dart';
-import '../../../widgets/donation_modal.dart';
+
+import '../../../themes/app_theme.dart';
 import '../../../themes/colors.dart';
 import '../../../themes/text_styles.dart';
+
+import '../../../widgets/reusable/top_header.dart';
+import '../../../widgets/reusable/app_bottom_nav.dart';
+import '../../../widgets/reusable/bg_container.dart';
+import '../../../widgets/donation/donation_modal.dart';
 import '../../../widgets/notification/filter_modal.dart';
 import '../../../widgets/notification/notification_card.dart';
 import '../../../widgets/notification/notification_detail_dialog.dart';

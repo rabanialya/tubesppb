@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class StepProgressIndicator extends StatelessWidget {
   final int currentStep; // 1..3

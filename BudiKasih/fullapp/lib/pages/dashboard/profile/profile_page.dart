@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../widgets/top_header.dart';
-import '../../../widgets/app_bottom_nav.dart';
-import '../../../widgets/bg_container.dart';
-import '../../../widgets/donation_modal.dart';
+
 import '../../../themes/colors.dart';
 import '../../../themes/text_styles.dart';
+import '../../../themes/app_theme.dart';
 
-// WIDGETS PROFIL
+import '../../../widgets/reusable/top_header.dart';
+import '../../../widgets/reusable/app_bottom_nav.dart';
+import '../../../widgets/reusable/bg_container.dart';
+import '../../../widgets/donation/donation_modal.dart';
 import '../../../widgets/profile/profile_header.dart';
 import '../../../widgets/profile/profile_menu_card.dart';
 import '../../../widgets/profile/edit_profile_sheet.dart';
@@ -133,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         InfoDialog.show(
                           context,
                           'Bantuan',
-                          'Hubungi admin:\n📞 0812-3456-7890\n✉️ admin@budikasih.org',
+                          'Hubungi admin:\n📞 +62 813-9466-1664\n✉️ admin@budikasih.org',
                         );
                       },
                     ),
@@ -144,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         InfoDialog.show(
                           context,
                           'Tentang Aplikasi',
-                          'BudiKasih adalah platform donasi digital untuk membantu kesejahteraan lansia.',
+                          'BudiKasih adalah aplikasi resmi milik Panti Wredha Budi Dharma Kasih Purbalingga yang dirancang untuk mempermudah masyarakat dalam berbagi kasih, melakukan donasi, dan mengenal lebih dekat kehidupan para lansia di panti. Aplikasi ini hadir sebagai jembatan digital yang mempertemukan para donatur dengan kebutuhan panti secara cepat, aman, dan praktis. \n ',
                         );
                       },
                     ),

@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'colors.dart';
 
 class AppTheme {
-  static final ThemeData lightTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryBlue,
-    scaffoldBackgroundColor: AppColors.background,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primaryBlue,
-      elevation: 0,
-    ),
-    // Ubah ke Poppins
+
+    // ===============================
+    // GLOBAL TEXT THEME = POPPINS
+    // ===============================
     textTheme: GoogleFonts.poppinsTextTheme(),
-    primaryTextTheme: GoogleFonts.poppinsTextTheme(),
+
+    fontFamily: GoogleFonts.poppins().fontFamily,
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryBlue,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        textStyle: GoogleFonts.poppins(
+          fontWeight: FontWeight.w600,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
     ),
+
     inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      hintStyle: GoogleFonts.poppins(
+        color: Colors.grey[500],
+        fontSize: 14,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+
+    snackBarTheme: SnackBarThemeData(
+      contentTextStyle: GoogleFonts.poppins(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }

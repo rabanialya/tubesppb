@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class InfoCard extends StatelessWidget {
   final IconData icon;
@@ -33,7 +33,7 @@ class InfoCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(content, style: AppTextStyles.body.copyWith(height: 1.5, color: Colors.black87, fontSize: 14)),
+          Text(content, textAlign: TextAlign.justify, style: AppTextStyles.body.copyWith(height: 1.5, color: Colors.black87, fontSize: 14)),
         ],
       ),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
-// Function helper untuk menampilkan modal donasi secara konsisten
 void showDonationModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -10,7 +9,7 @@ void showDonationModal(BuildContext context) {
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
     ),
-    isScrollControlled: true, // Tambahkan ini untuk kontrol scroll
+    isScrollControlled: true, 
     builder: (context) {
       return SafeArea(
         child: Padding(
@@ -76,7 +75,6 @@ void showDonationModal(BuildContext context) {
   );
 }
 
-// Widget untuk card option donasi
 class DonationOptionCard extends StatelessWidget {
   final IconData icon;
   final String label;

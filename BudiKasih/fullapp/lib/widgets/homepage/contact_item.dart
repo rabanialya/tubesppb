@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class ContactItem extends StatelessWidget {
   final IconData icon;
@@ -17,20 +17,29 @@ class ContactItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: AppColors.primaryBlue),
-        const SizedBox(width: 10),
+        Icon(icon, color: AppColors.primaryBlue, size: 22),
+        const SizedBox(width: 12),
+
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+              Text(
+                label,
+                style: AppTextStyles.body.copyWith(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                ),
+              ),
+              const SizedBox(height: 2),
               Text(
                 value,
-                style: const TextStyle(
-                  color: Colors.black,
+                style: AppTextStyles.body.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
+                  color: AppColors.darkBlue,
                 ),
               ),
             ],

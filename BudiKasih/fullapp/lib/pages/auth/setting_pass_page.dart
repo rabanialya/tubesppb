@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
-import '../../widgets/step_progress_indicator.dart';
 
-// WIDGET BARU
+import '../../widgets/setting_pass/step_progress_indicator.dart';
 import '../../widgets/setting_pass/step_email.dart';
 import '../../widgets/setting_pass/step_verification.dart';
 import '../../widgets/setting_pass/step_new_password.dart';

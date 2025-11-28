@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
@@ -9,7 +10,17 @@ class WelcomePage extends StatefulWidget {
   State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
+class _WelcomePageState extends State<WelcomePage>
+    with SingleTickerProviderStateMixin {
+  
+  final List<String> bgImages = [
+    'assets/img/bg_awal1.jpg',
+    'assets/img/bg_awal2.jpg',
+    'assets/img/bg_awal3.jpg',
+  ];
+
+  int _currentBg = 0;
+
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -17,21 +28,29 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-    
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+
     _controller.forward();
+
+    Timer.periodic(const Duration(seconds: 4), (timer) {
+      setState(() {
+        _currentBg = (_currentBg + 1) % bgImages.length;
+      });
+    });
   }
 
   @override
@@ -43,31 +62,42 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/img/bg_awal.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.black.withOpacity(0.3),
-                Colors.black.withOpacity(0.65)
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: Container(
+              key: ValueKey(_currentBg),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(bgImages[_currentBg]),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
-          child: SafeArea(
+
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.25),
+                  Colors.black.withOpacity(0.7),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+
+          SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 48),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 48),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Logo Section with Animation
+                  // LOGO
                   FadeTransition(
                     opacity: _fadeAnimation,
                     child: Column(
@@ -93,19 +123,30 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text('BudiKasih', style: AppTextStyles.titleWhite.copyWith(fontSize: 26, letterSpacing: 1.2, shadows: [Shadow(color: Colors.black.withOpacity(0.3), offset: const Offset(0,2), blurRadius: 4)])),
+                        Text(
+                          'BudiKasih',
+                          style: AppTextStyles.titleWhite.copyWith(
+                            fontSize: 26,
+                            letterSpacing: 1.2,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withOpacity(0.3),
+                                offset: const Offset(0, 2),
+                                blurRadius: 4,
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
 
-                  // Main Content with Slide Animation
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
                       opacity: _fadeAnimation,
                       child: Column(
                         children: [
-                          // Decorative Icon
                           Container(
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
@@ -119,12 +160,17 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             ),
                           ),
                           const SizedBox(height: 24),
-                          
-                          // Title
-                          Text('Berbagi Kasih untuk\nOma & Opa', textAlign: TextAlign.center, style: AppTextStyles.titleWhite.copyWith(fontSize: 32, height: 1.3)),
+
+                          Text(
+                            'Berbagi Kasih untuk\nOma & Opa',
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.titleWhite.copyWith(
+                              fontSize: 32,
+                              height: 1.3,
+                            ),
+                          ),
                           const SizedBox(height: 16),
-                          
-                          // Subtitle with Card Background
+
                           Container(
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
@@ -135,19 +181,24 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                                 width: 1,
                               ),
                             ),
-                            child: Text('Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.', textAlign: TextAlign.center, style: AppTextStyles.titleWhite.copyWith(fontSize: 15, height: 1.6)),
+                            child: Text(
+                              'Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.',
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.titleWhite.copyWith(
+                                fontSize: 15,
+                                height: 1.6,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
 
-                  // Button Section
                   FadeTransition(
                     opacity: _fadeAnimation,
                     child: Column(
                       children: [
-                        // Main Button with Shadow
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
@@ -160,7 +211,8 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             ],
                           ),
                           child: ElevatedButton(
-                            onPressed: () => Navigator.pushNamed(context, '/login'),
+                            onPressed: () =>
+                                Navigator.pushNamed(context, '/login'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: AppColors.primaryBlue,
@@ -176,7 +228,14 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('Mulai Berbagi', style: AppTextStyles.body.copyWith(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
+                                Text(
+                                  'Mulai Berbagi',
+                                  style: AppTextStyles.body.copyWith(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primaryBlue,
+                                  ),
+                                ),
                                 const SizedBox(width: 8),
                                 const Icon(Icons.arrow_forward, size: 20),
                               ],
@@ -184,8 +243,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                           ),
                         ),
                         const SizedBox(height: 20),
-                        
-                        // Info Text
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -195,7 +253,13 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
                               size: 16,
                             ),
                             const SizedBox(width: 8),
-                            Text('Mudah, Aman, dan Transparan', style: AppTextStyles.titleWhite.copyWith(fontSize: 13, color: Colors.white.withOpacity(0.8))),
+                            Text(
+                              'Mudah, Aman, dan Transparan',
+                              style: AppTextStyles.titleWhite.copyWith(
+                                fontSize: 13,
+                                color: Colors.white.withOpacity(0.8),
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -205,7 +269,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

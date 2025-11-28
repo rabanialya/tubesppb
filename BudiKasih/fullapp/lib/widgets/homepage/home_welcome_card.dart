@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class HomeWelcomeCard extends StatelessWidget {
   const HomeWelcomeCard({super.key});
@@ -24,7 +24,7 @@ class HomeWelcomeCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text('Terima kasih sudah peduli pada kebahagiaan lansia. Mari bantu wujudkan masa tua yang penuh cinta dan ketenangan 🌼', style: AppTextStyles.body.copyWith(color: AppColors.darkBlue, fontSize: 14, height: 1.5)),
+          Text('Dengan penuh rasa syukur dan sukacita, kami dari Panti Wredha Budi Dharma Kasih Purbalingga menyambut kehadiran Anda. Aplikasi ini kami hadirkan sebagai jembatan kasih antara Anda dan para Oma & Opa yang kami rawat dengan penuh perhatian. Terima kasih telah menjadi bagian dari keluarga besar BudiKasih. Mari bersama menebarkan cinta, merawat harapan, dan menghadirkan senyum untuk para Oma & Opa 💐', textAlign: TextAlign.justify,),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
-import '../custom_text_field.dart';
+import '../auth/custom_text_field.dart';
 
 class StepEmail extends StatelessWidget {
   final TextEditingController controller;

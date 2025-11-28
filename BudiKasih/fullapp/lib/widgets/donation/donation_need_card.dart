@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../themes/colors.dart';
-import '../themes/text_styles.dart';
+import '../../themes/colors.dart';
+import '../../themes/text_styles.dart';
 
 class DonationNeedCard extends StatelessWidget {
   final String item;
@@ -82,28 +82,6 @@ class DonationNeedCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          const SizedBox(width: 8),
-          Column(
-            children: [
-              Text(
-                jumlah,
-                style: TextStyle(color: _priorityColor(), fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () {
-                  // scroll atau navigasi ke form bisa ditambahkan di parent jika perlu
-                  // secara default lakukan nothing
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryBlue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                ),
-                child: const Text('Donasi', style: TextStyle(fontSize: 13)),
-              ),
-            ],
           ),
         ],
       ),
