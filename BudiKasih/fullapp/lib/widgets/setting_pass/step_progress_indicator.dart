@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../themes/colors.dart';
-import '../../themes/text_styles.dart';
 
 class StepProgressIndicator extends StatelessWidget {
-  final int currentStep; // 1..3
+  final int currentStep;
   final List<String> labels;
 
   const StepProgressIndicator({
@@ -43,8 +43,7 @@ class StepProgressIndicator extends StatelessWidget {
                 ? const Icon(Icons.check, color: AppColors.primaryBlue, size: 24)
                 : Text(
                     '$stepNumber',
-                    style: TextStyle(
-                      fontFamily: AppTextStyles.fontFamily,
+                    style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: isActive ? AppColors.primaryBlue : Colors.white,
@@ -52,11 +51,12 @@ class StepProgressIndicator extends StatelessWidget {
                   ),
           ),
         ),
+
         const SizedBox(height: 6),
+
         Text(
           label,
-          style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
+          style: GoogleFonts.poppins(
             fontSize: 12,
             color: isActive ? Colors.white : Colors.white.withOpacity(0.6),
             fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,

@@ -6,9 +6,6 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryBlue,
 
-    // ===============================
-    // GLOBAL TEXT THEME = POPPINS
-    // ===============================
     textTheme: GoogleFonts.poppinsTextTheme(),
 
     fontFamily: GoogleFonts.poppins().fontFamily,

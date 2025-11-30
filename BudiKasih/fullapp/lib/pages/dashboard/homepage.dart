@@ -15,6 +15,15 @@ import '../../widgets/homepage/info_card.dart';
 import '../../widgets/homepage/contact_item.dart';
 import '../../widgets/donation/donation_modal.dart';
 
+
+void _openURL(String url) async {
+  final uri = Uri.parse(url);
+
+  if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+    debugPrint("Gagal membuka link: $url");
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -195,30 +204,43 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 30),
 
               // KONTAK
-              const SectionHeader(title: "Hubungi Kami", icon: Icons.phone),
-              const SizedBox(height: 16),
-              ContactItem(
-                icon: Icons.phone,
-                label: "Telepon",
-                value: "(0281) 891-829",
-              ),
-              const SizedBox(height: 10),
+              SectionHeader(title: "Hubungi Kami", icon: Icons.phone),
+              const SizedBox(height: 20),
+
               ContactItem(
                 icon: Icons.chat,
                 label: "WhatsApp",
                 value: "0813-9466-1664",
+                onTap: () => _openURL("https://wa.me/6281394661664"),
               ),
-              const SizedBox(height: 10),
-              InkWell(
+
+              const SizedBox(height: 12),
+
+              ContactItem(
+                icon: Icons.camera_alt_outlined,
+                label: "Instagram",
+                value: "@pantiwredhabudidharmakasih",
+                onTap: () => _openURL("https://www.instagram.com/pantiwredabudidharmakasih?igsh=MWdidXVnMXl5c3F5Nw=="),
+              ),
+
+              const SizedBox(height: 12),
+
+              ContactItem(
+                icon: Icons.play_circle_fill,
+                label: "YouTube",
+                value: "pantiwredhabudidharmakasih8513",
+                onTap: () => _openURL("https://youtube.com/@pantiwredhabudidharmakasih8513"),
+              ),
+
+              const SizedBox(height: 12),
+
+              ContactItem(
+                icon: Icons.location_on,
+                label: "Alamat",
+                value: "Jl. Raya Mayjen Soengkono No.510, Kalimanah, Purbalingga",
                 onTap: _openMaps,
-                borderRadius: BorderRadius.circular(8),
-                child: ContactItem(
-                  icon: Icons.location_on,
-                  label: "Alamat",
-                  value: "Jl. Mayjend Soengkono 510, Purbalingga",
-                ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
             ],
           ),
         ),

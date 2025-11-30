@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
@@ -113,10 +114,10 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushNamed(context, '/setting_pass'),
                                 child: Text(
                                   'Lupa Password?',
-                                  style: TextStyle(
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
                                     color: AppColors.primaryBlue,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 13,
                                   ),
                                 ),
                               ),

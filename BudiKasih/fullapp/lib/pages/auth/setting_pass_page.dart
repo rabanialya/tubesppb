@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
+import '../../themes/app_theme.dart';
 
 import '../../widgets/setting_pass/step_progress_indicator.dart';
 import '../../widgets/setting_pass/step_email.dart';
@@ -33,7 +35,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
   void _showSnackBar(String message, Color color) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message, style: const TextStyle(fontFamily: AppTextStyles.fontFamily)),
+        content: Text(message, style: GoogleFonts.poppins(color: Colors.white)),
         backgroundColor: color,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -87,13 +89,12 @@ class _SettingPassPageState extends State<SettingPassPage> {
         builder: (context) => AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           title: Row(
-            children: const [
+            children: [
               Icon(Icons.check_circle, color: Colors.green, size: 28),
               SizedBox(width: 12),
               Text(
                 'Berhasil!',
-                style: TextStyle(fontFamily: AppTextStyles.fontFamily),
-              ),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
             ],
           ),
           content: const Text(

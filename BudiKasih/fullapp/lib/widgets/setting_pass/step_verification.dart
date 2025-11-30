@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
 import '../auth/custom_text_field.dart';
@@ -22,11 +23,7 @@ class StepVerification extends StatelessWidget {
       children: [
         Text(
           'Kode Verifikasi',
-          style: AppTextStyles.body.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkBlue,
-          ),
+          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkBlue,),
         ),
         const SizedBox(height: 8),
         CustomTextField(
@@ -42,20 +39,13 @@ class StepVerification extends StatelessWidget {
           children: [
             Text(
               'Tidak menerima kode? ',
-              style: AppTextStyles.body.copyWith(
-                fontSize: 13,
-                color: Colors.grey[600],
-              ),
+              style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey[600],),
             ),
             GestureDetector(
               onTap: onResend,
               child: Text(
                 'Kirim Ulang',
-                style: AppTextStyles.body.copyWith(
-                  fontSize: 13,
-                  color: AppColors.primaryBlue,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: GoogleFonts.poppins(fontSize: 13, color: AppColors.primaryBlue, fontWeight: FontWeight.w600,),
               ),
             ),
           ],
@@ -77,10 +67,7 @@ class StepVerification extends StatelessWidget {
             ),
             child: Text(
               'Verifikasi',
-              style: AppTextStyles.body.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
         ),

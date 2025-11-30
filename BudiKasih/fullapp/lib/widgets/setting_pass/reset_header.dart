@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../themes/text_styles.dart';
 
 class ResetHeader extends StatelessWidget {
@@ -28,27 +29,16 @@ class ResetHeader extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        const Text(
+        Text(
           'Reset Password',
-          style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white,)
         ),
-
         const SizedBox(height: 8),
 
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: AppTextStyles.fontFamily,
-            fontSize: 14,
-            color: Colors.white.withOpacity(0.8),
-            height: 1.4,
-          ),
+          style: GoogleFonts.poppins(fontSize: 14, color: Colors.white.withOpacity(0.8), height: 1.4,),
         ),
       ],
     );

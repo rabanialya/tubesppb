@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
 import '../auth/custom_text_field.dart';
@@ -20,11 +21,7 @@ class StepEmail extends StatelessWidget {
       children: [
         Text(
           'Email',
-          style: AppTextStyles.body.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkBlue,
-          ),
+          style: GoogleFonts.poppins(color: AppColors.darkBlue, fontSize: 14, fontWeight: FontWeight.w600,),
         ),
         const SizedBox(height: 8),
         CustomTextField(
@@ -48,11 +45,7 @@ class StepEmail extends StatelessWidget {
             ),
             child: Text(
               'Kirim Kode',
-              style: AppTextStyles.body.copyWith(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)
             ),
           ),
         ),

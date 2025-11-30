@@ -3,7 +3,6 @@ import 'colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
-  // Ubah ke Poppins
   static const String fontFamily = 'Poppins';
 
   static final TextStyle heading = GoogleFonts.poppins(

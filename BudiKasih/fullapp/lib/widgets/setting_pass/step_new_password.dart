@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
 import '../auth/custom_text_field.dart';
@@ -30,11 +31,7 @@ class StepNewPassword extends StatelessWidget {
       children: [
         Text(
           'Password Baru',
-          style: AppTextStyles.body.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkBlue,
-          ),
+          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkBlue,),
         ),
         const SizedBox(height: 8),
 
@@ -58,11 +55,7 @@ class StepNewPassword extends StatelessWidget {
 
         Text(
           'Konfirmasi Password',
-          style: AppTextStyles.body.copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkBlue,
-          ),
+          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkBlue,),
         ),
         const SizedBox(height: 8),
 
@@ -98,10 +91,7 @@ class StepNewPassword extends StatelessWidget {
             ),
             child: Text(
               'Simpan Perubahan',
-              style: AppTextStyles.body.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold,),
             ),
           ),
         )
