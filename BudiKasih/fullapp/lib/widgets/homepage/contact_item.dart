@@ -27,7 +27,6 @@ class ContactItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
             Container(
               width: 34,
               height: 34,
@@ -40,7 +39,6 @@ class ContactItem extends StatelessWidget {
 
             const SizedBox(width: 14),
 
-            // Text content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

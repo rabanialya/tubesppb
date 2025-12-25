@@ -25,12 +25,12 @@ class _ProfilePageState extends State<ProfilePage> {
   int currentIndex = 2;
 
   // Data user sementara
-  String name = 'Isabell Conklin';
-  String email = 'isabell@example.com';
+  String name = 'Maria Isabella';
+  String email = 'Mariaissabell@example.com';
   String? profileImagePath;
 
-  final nameC = TextEditingController(text: 'Isabell Conklin');
-  final emailC = TextEditingController(text: 'isabell@example.com');
+  final nameC = TextEditingController(text: 'Maria Isabella');
+  final emailC = TextEditingController(text: 'Mariaissabella@example.com');
   final passC = TextEditingController();
 
   void _onNavTap(int index) {
@@ -118,13 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       icon: Icons.history,
                       title: 'Riwayat Donasi',
                       onTap: () {
-                        InfoDialog.show(
-                          context,
-                          'Riwayat Donasi',
-                          '• Donasi Barang: Pampers Size L (20/10/25)\n'
-                              '• Donasi Tunai: Rp100.000 (22/10/25)\n'
-                              '• Pesan Cinta ke Oma Rini (23/10/25)',
-                        );
+                        Navigator.pushNamed(context, '/history');
                       },
                     ),
                     ProfileMenuCard(

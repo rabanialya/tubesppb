@@ -1,16 +1,17 @@
-  import 'package:flutter/material.dart';
-  import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-  import '../../../themes/colors.dart';
-  import '../../../themes/text_styles.dart';
-  import '../../../themes/app_theme.dart';
+import '../../../themes/colors.dart';
+import '../../../themes/text_styles.dart';
+import '../../../themes/app_theme.dart';
   
-  import '../../../widgets/reusable/top_header.dart';
-  import '../../../widgets/reusable/app_bottom_nav.dart';
-  import '../../../widgets/reusable/bg_container.dart';
-  import '../../../widgets/donation/donation_need_card.dart';
-  import '../../../widgets/donation/donation_modal.dart';
-  import '../../../widgets/donation/donation_form.dart';
+import '../../../widgets/reusable/top_header.dart';
+import '../../../widgets/reusable/app_bottom_nav.dart';
+import '../../../widgets/reusable/bg_container.dart';
+import '../../../widgets/donation/donation_need_card.dart';
+import '../../../widgets/donation/donation_modal.dart';
+import '../../../widgets/donation/goods_donation_form.dart';
+import '../../../widgets/donation/goods_donation_form.dart';
 
   class DonationGoodsPage extends StatefulWidget {
     const DonationGoodsPage({super.key});
@@ -21,10 +22,10 @@
 
   class _DonationGoodsPageState extends State<DonationGoodsPage> {
     final _nama = TextEditingController();
+    final _email = TextEditingController();
     final _hp = TextEditingController();
     final _barang = TextEditingController();
     final _jumlah = TextEditingController();
-    final _tanggal = TextEditingController();
     final _catatan = TextEditingController();
 
     int _selectedIndex = 1;
@@ -91,6 +92,10 @@
       // Validation
       if (_nama.text.trim().isEmpty) {
         _showSnackBar('Nama donatur harus diisi', Colors.orange);
+        return;
+      }
+      if (_email.text.trim().isEmpty) {
+        _showSnackBar('Email donatur harus diisi', Colors.orange);
         return;
       }
       if (_hp.text.trim().isEmpty) {
@@ -227,21 +232,6 @@
       }
     }
 
-    Future<void> _pickDate() async {
-      final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100),
-      );
-      if (picked != null) {
-        final formatted = '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
-        setState(() {
-          _tanggal.text = formatted;
-        });
-      }
-    }
-
     Widget _buildNeedsSection() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,13 +278,12 @@
     Widget _buildFormSection() {
       return Column(
         children: [
-          DonationForm(
+          GoodsDonationForm(
             namaController: _nama,
+            emailController: _email,
             hpController: _hp,
             barangController: _barang,
             jumlahController: _jumlah,
-            tanggalController: _tanggal,
-            onPickDate: _pickDate,
             catatanController: _catatan,
             onSubmit: _submitDonation,
           ),
@@ -333,10 +322,10 @@
     @override
     void dispose() {
       _nama.dispose();
+      _email.dispose();
       _hp.dispose();
       _barang.dispose();
       _jumlah.dispose();
-      _tanggal.dispose();
       _catatan.dispose();
       super.dispose();
     }

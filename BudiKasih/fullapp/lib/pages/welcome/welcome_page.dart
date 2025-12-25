@@ -183,7 +183,7 @@ class _WelcomePageState extends State<WelcomePage>
                             ),
                             child: Text(
                               'Mari bersama-sama membantu lansia di Panti Wredha Budi Dharma Kasih melalui donasi dan perhatian kecil dari kita semua.',
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.justify,
                               style: AppTextStyles.titleWhite.copyWith(
                                 fontSize: 15,
                                 height: 1.6,

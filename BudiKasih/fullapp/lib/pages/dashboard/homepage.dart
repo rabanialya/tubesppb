@@ -100,7 +100,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Open maps
   Future<void> _openMaps() async {
     final url = Uri.parse("https://maps.app.goo.gl/fYAP4f7dvjddJPYB9");
     if (await canLaunchUrl(url)) {
@@ -128,19 +127,16 @@ class _HomePageState extends State<HomePage> {
               const HomeWelcomeCard(),
               const SizedBox(height: 30),
 
-              // KEGIATAN PANTI
               const SectionHeader(title: "Kegiatan Panti", icon: Icons.event),
               const SizedBox(height: 12),
               HomeCarousel(images: kegiatanImages, controller: kegiatanController),
               const SizedBox(height: 30),
 
-              // FASILITAS
               const SectionHeader(title: "Fasilitas Kami", icon: Icons.home_rounded),
               const SizedBox(height: 12),
               HomeCarousel(images: fasilitasImages, controller: fasilitasController),
               const SizedBox(height: 30),
 
-              // SEJARAH
               const InfoCard(
                 icon: Icons.menu_book_rounded,
                 title: "Sejarah Panti",
@@ -149,7 +145,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 30),
 
-              // PESAN CINTA
               const SectionHeader(title: "Pesan Cinta untuk Oma & Opa", icon: Icons.favorite),
               const SizedBox(height: 12),
               Container(
@@ -203,7 +198,6 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 30),
 
-              // KONTAK
               SectionHeader(title: "Hubungi Kami", icon: Icons.phone),
               const SizedBox(height: 20),
 

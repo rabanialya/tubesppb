@@ -41,7 +41,6 @@ class NotificationCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -56,7 +55,6 @@ class NotificationCard extends StatelessWidget {
             ),
             const SizedBox(width: 14),
 
-            // Message
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

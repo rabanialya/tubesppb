@@ -68,7 +68,6 @@ class QrisSection extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // QR Image
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -86,7 +85,6 @@ class QrisSection extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // Download QRIS Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(

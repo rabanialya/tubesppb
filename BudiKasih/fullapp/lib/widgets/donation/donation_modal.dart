@@ -22,7 +22,6 @@ void showDonationModal(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Handle bar
               Container(
                 width: 40,
                 height: 4,
@@ -32,13 +31,10 @@ void showDonationModal(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 20),
-              // Title
               Text('Pilih Jenis Donasi', style: AppTextStyles.heading.copyWith(fontSize: 20, color: AppColors.darkBlue)),
               const SizedBox(height: 8),
-              // Subtitle
               Text('Setiap bantuan Anda sangat berarti', style: AppTextStyles.body.copyWith(fontSize: 13, color: Colors.grey[600])),
               const SizedBox(height: 24),
-              // Donation options
               Row(
                 children: [
                   Expanded(
@@ -57,7 +53,7 @@ void showDonationModal(BuildContext context) {
                     child: DonationOptionCard(
                       icon: Icons.account_balance_wallet_outlined,
                       label: 'Donasi\nTunai',
-                      color: Colors.green.shade600,
+                      color: const Color.fromRGBO(67, 160, 71, 1),
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, '/donationcash');

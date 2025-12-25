@@ -24,12 +24,10 @@ class DonationCashPage extends StatefulWidget {
 
 class _DonationCashPageState extends State<DonationCashPage> {
   final TextEditingController _nama = TextEditingController();
+  final TextEditingController _email = TextEditingController();
   final TextEditingController _hp = TextEditingController();
   final TextEditingController _nominal = TextEditingController();
-  final TextEditingController _tanggal = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
-  
-  File? _buktiTransferFromForm;
 
   final List<Map<String, String>> _bankAccounts = [
     {'bank': 'BCA', 'number': '1234567890', 'name': 'Yayasan Panti Wredha BDK'},
@@ -56,25 +54,14 @@ class _DonationCashPageState extends State<DonationCashPage> {
     );
   }
 
-  Future<void> _pickDate() async {
-  final DateTime? picked = await showDatePicker(
-    context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(2020),
-    lastDate: DateTime(2035),
-  );
-
-  if (picked != null) {
-    setState(() {
-      _tanggal.text = "${picked.day}-${picked.month}-${picked.year}";
-    });
-  }
-}
-
 
   Future<void> _submit() async {
     if (_nama.text.trim().isEmpty) {
       _showSnackBar('Nama harus diisi', Colors.orange);
+      return;
+    }
+    if (_email.text.trim().isEmpty) {
+      _showSnackBar('Email harus diisi', Colors.orange);
       return;
     }
     if (_hp.text.trim().isEmpty) {
@@ -184,7 +171,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
     if (index == 0) {
       Navigator.pushReplacementNamed(context, '/home');
     } else if (index == 1) {
-      showDonationModal(context); // ✅ Gunakan fungsi dari donation_modal.dart
+      showDonationModal(context); 
     } else if (index == 2) {
       Navigator.pushReplacementNamed(context, '/profile');
     }
@@ -243,11 +230,10 @@ class _DonationCashPageState extends State<DonationCashPage> {
   Widget _buildFormSection() {
     return CashDonationForm(
       namaController: _nama,
+      emailController: _email,
       hpController: _hp,
       nominalController: _nominal,
-      tanggalController: _tanggal,
       catatanController: _catatan,
-      onPickDate: _pickDate,
       onSubmit: _submit,
     );
   }
@@ -255,9 +241,9 @@ class _DonationCashPageState extends State<DonationCashPage> {
   @override
   void dispose() {
     _nama.dispose();
+    _email.dispose();
     _hp.dispose();
     _nominal.dispose();
-    _tanggal.dispose();
     _catatan.dispose();
     super.dispose();
   }

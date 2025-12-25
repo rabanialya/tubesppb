@@ -1,8 +1,8 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class ProfileHeader extends StatefulWidget {
   final String name;

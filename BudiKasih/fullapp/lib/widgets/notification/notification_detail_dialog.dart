@@ -29,7 +29,6 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // HEADER
   Widget _buildHeader(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -67,18 +66,15 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // CONTENT
   Widget _buildContent(BuildContext context) {
     final String type = data['type'];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // pesan utama
         Text(data['msg'], style: AppTextStyles.body.copyWith(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.darkBlue, height: 1.5)),
         const SizedBox(height: 20),
 
-        // tipe donasi
         if (type == 'donation_received') _donationReceived(),
         if (type == 'cash_verified') _cashVerified(),
         if (type == 'message_received') _messageReceived(),
@@ -90,9 +86,6 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // =============== DETAIL SECTIONS ===============
-
-  // DONASI BARANG
   Widget _donationReceived() {
     return Column(
       children: [
@@ -117,7 +110,6 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // DONASI TUNAI
   Widget _cashVerified() {
     return Column(
       children: [
@@ -137,7 +129,6 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // PESAN MASUK
   Widget _messageReceived() {
     return Column(
       children: [
@@ -158,7 +149,6 @@ class NotificationDetailDialog extends StatelessWidget {
     );
   }
 
-  // URGENT NEED
   Widget _urgentNeed(BuildContext context) {
     return Column(
       children: [
@@ -188,8 +178,6 @@ class NotificationDetailDialog extends StatelessWidget {
       ],
     );
   }
-
-  // =============== UI HELPERS ===============
 
   Widget _buildSection(String title, List<Widget> children) {
     return Container(

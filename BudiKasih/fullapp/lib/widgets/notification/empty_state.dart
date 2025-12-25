@@ -34,7 +34,6 @@ class NotificationSectionList extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Section title date
             Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 12),
               child: Text(section['date'], style: AppTextStyles.heading.copyWith(fontSize: 15, color: AppColors.darkBlue)),

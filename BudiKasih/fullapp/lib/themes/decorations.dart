@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AppDecorations {
-  // White card with shadow
   static BoxDecoration whiteCard({double radius = 16, double opacity = 0.95}) {
     return BoxDecoration(
       color: Colors.white.withOpacity(opacity),
@@ -17,7 +16,6 @@ class AppDecorations {
     );
   }
 
-  // Gradient card (blue gradient)
   static BoxDecoration gradientBlueCard({double radius = 16}) {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -34,7 +32,6 @@ class AppDecorations {
     );
   }
 
-  // Gradient card (green gradient)
   static BoxDecoration gradientGreenCard({double radius = 16}) {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -51,7 +48,6 @@ class AppDecorations {
     );
   }
 
-  // Icon container background
   static BoxDecoration iconContainer({
     required Color color,
     double radius = 12,
@@ -63,7 +59,6 @@ class AppDecorations {
     );
   }
 
-  // Circle icon container with border
   static BoxDecoration circleIconContainer({
     required Color color,
     double opacity = 0.1,
@@ -80,7 +75,6 @@ class AppDecorations {
     );
   }
 
-  // Form field background decoration
   static BoxDecoration formFieldBackground({double radius = 12}) {
     return BoxDecoration(
       color: Colors.white.withOpacity(0.95),
@@ -95,7 +89,6 @@ class AppDecorations {
     );
   }
 
-  // Card with colored border
   static BoxDecoration borderedCard({
     required Color borderColor,
     double radius = 16,
@@ -116,7 +109,6 @@ class AppDecorations {
     );
   }
 
-  // Notification card decoration
   static BoxDecoration notificationCard({
     required bool isRead,
     double radius = 16,
@@ -139,7 +131,6 @@ class AppDecorations {
     );
   }
 
-  // Menu item decoration
   static BoxDecoration menuItem({
     bool isSelected = false,
     double radius = 12,
@@ -154,7 +145,6 @@ class AppDecorations {
     );
   }
 
-  // Profile header gradient
   static BoxDecoration profileHeaderGradient({double radius = 20}) {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -171,7 +161,6 @@ class AppDecorations {
     );
   }
 
-  // Bank card decoration with gradient
   static BoxDecoration bankCard({double radius = 12}) {
     return BoxDecoration(
       gradient: LinearGradient(
@@ -182,7 +171,6 @@ class AppDecorations {
     );
   }
 
-  // Image picker container
   static BoxDecoration imagePickerContainer({double radius = 12}) {
     return BoxDecoration(
       color: Colors.grey[100],
@@ -191,7 +179,6 @@ class AppDecorations {
     );
   }
 
-  // Modal handle decoration
   static BoxDecoration modalHandle() {
     return BoxDecoration(
       color: Colors.grey[300],
@@ -199,7 +186,6 @@ class AppDecorations {
     );
   }
 
-  // Info box decoration
   static BoxDecoration infoBox({required Color color, double radius = 10}) {
     return BoxDecoration(
       color: color.withOpacity(0.1),
@@ -207,7 +193,6 @@ class AppDecorations {
     );
   }
 
-  // Priority badge decoration
   static BoxDecoration priorityBadge({required Color color, double radius = 20}) {
     return BoxDecoration(
       color: color.withOpacity(0.15),
@@ -215,7 +200,6 @@ class AppDecorations {
     );
   }
 
-  // Wallet icon decoration
   static BoxDecoration walletIcon({required Color color, double radius = 8}) {
     return BoxDecoration(
       color: color.withOpacity(0.1),

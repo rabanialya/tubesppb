@@ -10,7 +10,7 @@ class NotificationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) {
-      return const SizedBox.shrink(); // parent akan menampilkan empty state
+      return const SizedBox.shrink();
     }
     return Column(
       children: items.map((it) {
