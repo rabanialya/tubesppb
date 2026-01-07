@@ -14,6 +14,9 @@ import '../../../widgets/notification/notification_detail_dialog.dart';
 import '../../../widgets/notification/empty_state.dart';
 import '../../../widgets/notification/section_list.dart';
 
+import '../../../controllers/notifikasi_controller.dart';
+import '../../../models/notifikasi_model.dart';
+
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 
@@ -22,10 +25,22 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  String selectedFilter = 'Semua';
   int currentIndex = 0;
+  late NotificationController _controller;
 
-  // ===================== BOTTOM NAV =====================
+  @override
+  void initState() {
+    super.initState();
+    _controller = NotificationController();
+    _controller.loadNotifications();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _onNavTap(int index) {
     setState(() => currentIndex = index);
 
@@ -38,7 +53,6 @@ class _NotificationPageState extends State<NotificationPage> {
     }
   }
 
-  // ===================== FILTER MODAL =====================
   void _showFilter() {
     showModalBottomSheet(
       context: context,
@@ -48,18 +62,26 @@ class _NotificationPageState extends State<NotificationPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (_) => NotificationFilterModal(
-        selectedFilter: selectedFilter,
+        selectedFilter: _controller.selectedFilter,
         onSelected: (value) {
-          setState(() => selectedFilter = value);
+          setState(() {
+            _controller.setFilter(value);
+          });
         },
       ),
     );
   }
 
-  // ===================== SHOW DETAIL =====================
   dynamic _openDetail(Map<dynamic, dynamic> item) {
-    // tandai sudah dibaca
-    setState(() => item['isRead'] = true);
+    // Cari section dan item yang sesuai
+    for (var section in _controller.notifications) {
+      for (var notifItem in section.items) {
+        if (notifItem.msg == item['msg']) {
+          _controller.markAsRead(section, notifItem);
+          break;
+        }
+      }
+    }
 
     return showDialog(
       context: context,
@@ -67,76 +89,6 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
 
-  // ===================== DATA (SAMA PERSIS DGN ASLI) =====================
-  final List<Map<String, dynamic>> notifications = [
-    {
-      'date': 'Hari ini, 08/11/25',
-      'items': [
-        {
-          'msg': 'Terima kasih! Donasi tunai Anda telah diterima pihak panti ❤️',
-          'isRead': true,
-          'icon': Icons.check_circle_outline,
-          'iconColor': Colors.green,
-          'type': 'cash_verified',
-          'detail': {
-            'amount': 'Rp 500.000',
-            'method': 'Transfer Bank BCA',
-            'date': '08/11/2025'
-          }
-        },
-        {
-          'msg': 'Panti sedang membutuhkan susu lansia dan vitamin. Mari bantu!',
-          'isRead': false,
-          'icon': Icons.volunteer_activism,
-          'iconColor': AppColors.primaryBlue,
-          'type': 'urgent_need',
-          'detail': {
-            'item': 'Susu Lansia & Vitamin',
-            'needed': '10 box',
-          }
-        },
-      ]
-    },
-    {
-      'date': 'Kemarin, 07/11/25',
-      'items': [
-        {
-          'msg': 'Pesan Anda untuk Oma Rini sudah diterima 🕊️',
-          'isRead': true,
-          'icon': Icons.mail_outline,
-          'iconColor': Colors.green,
-          'type': 'message_received',
-          'detail': {
-            'recipient': 'Oma Rini',
-            'date': '07/11/2025',
-            'message': 'Semangat Oma Rini! Semoga selalu sehat dan bahagia 💕'
-          }
-        },
-      ]
-    },
-    {
-      'date': '05/11/25',
-      'items': [
-        {
-          'msg':
-              'Donasi barang berupa Pampers telah sampai di panti. Terima kasih atas kebaikan Anda! 💝',
-          'isRead': true,
-          'icon': Icons.local_shipping_outlined,
-          'iconColor': Colors.green,
-          'type': 'donation_received',
-          'detail': {
-            'donorName': 'Isabell Conklin',
-            'type': 'Donasi Barang',
-            'item': 'Pampers Dewasa Size L',
-            'quantity': '5 bungkus',
-            'date': '05/11/2025'
-          }
-        },
-      ]
-    },
-  ];
-
-  // ===================== UI =====================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,13 +114,65 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
 
       body: BackgroundContainer(
-        child: notifications.isEmpty
-            ? Center(child: Text('Belum ada notifikasi', style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.black54)))
-            : NotificationSectionList(
-                sections: notifications,
-                filter: selectedFilter,
-                onCardTap: _openDetail,
-              ),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            if (_controller.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (_controller.errorMessage != null) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _controller.errorMessage!,
+                      style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.red),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: _controller.refresh,
+                      child: const Text('Coba Lagi'),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            if (!_controller.hasNotifications) {
+              return Center(
+                child: Text(
+                  'Belum ada notifikasi',
+                  style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.black54),
+                ),
+              );
+            }
+
+            // Convert ke format yang dibutuhkan NotificationSectionList
+            final sections = _controller.notifications.map((section) {
+              return {
+                'date': section.date,
+                'items': section.items.map((item) {
+                  return {
+                    'msg': item.msg,
+                    'isRead': item.isRead,
+                    'icon': item.icon,
+                    'iconColor': item.iconColor,
+                    'type': item.type,
+                    'detail': item.detail,
+                  };
+                }).toList(),
+              };
+            }).toList();
+
+            return NotificationSectionList(
+              sections: sections,
+              filter: _controller.selectedFilter,
+              onCardTap: _openDetail,
+            );
+          },
+        ),
       ),
     );
   }

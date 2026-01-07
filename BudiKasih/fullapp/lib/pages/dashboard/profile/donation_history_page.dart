@@ -20,7 +20,7 @@ class _DonationHistoryPageState extends State<DonationHistoryPage> {
   // ===================== DATA =====================
   final List<Map<String, dynamic>> donationHistory = [
     {
-      'date': 'Hari ini, 23/10/25',
+      'date': 'Hari ini, 08/01/26',
       'items': [
         {
           'type': 'Tunai',
@@ -32,7 +32,7 @@ class _DonationHistoryPageState extends State<DonationHistoryPage> {
       ],
     },
     {
-      'date': '9/08/25',
+      'date': '08/01/26',
       'items': [
         {
           'type': 'Barang',

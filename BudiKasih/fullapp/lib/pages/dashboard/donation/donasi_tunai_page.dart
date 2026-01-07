@@ -1,11 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:provider/provider.dart';
 import '../../../themes/colors.dart';
 import '../../../themes/text_styles.dart';
 import '../../../themes/app_theme.dart';
-
 import '../../../widgets/reusable/top_header.dart';
 import '../../../widgets/reusable/app_bottom_nav.dart';
 import '../../../widgets/reusable/bg_container.dart';
@@ -14,6 +13,7 @@ import '../../../widgets/donation/qris_section.dart';
 import '../../../widgets/donation/cash_donation_form.dart';
 import '../../../widgets/donation/donation_modal.dart';
 import '../../../widgets/donation/donation_method_selector.dart';
+import '../../../controllers/donasi_controller.dart';
 
 class DonationCashPage extends StatefulWidget {
   const DonationCashPage({super.key});
@@ -30,13 +30,26 @@ class _DonationCashPageState extends State<DonationCashPage> {
   final TextEditingController _catatan = TextEditingController();
 
   final List<Map<String, String>> _bankAccounts = [
-    {'bank': 'BCA', 'number': '1234567890', 'name': 'Yayasan Panti Wredha BDK'},
-    {'bank': 'Mandiri', 'number': '0987654321', 'name': 'Yayasan Panti Wredha BDK'},
-    {'bank': 'BNI', 'number': '1122334455', 'name': 'Yayasan Panti Wredha BDK'},
+    {
+      'bank': 'BCA',
+      'number': '1234567890',
+      'name': 'Yayasan Panti Wredha BDK'
+    },
+    {
+      'bank': 'Mandiri',
+      'number': '0987654321',
+      'name': 'Yayasan Panti Wredha BDK'
+    },
+    {
+      'bank': 'BNI',
+      'number': '1122334455',
+      'name': 'Yayasan Panti Wredha BDK'
+    },
   ];
 
   int _selectedIndex = 1;
   String _selectedMethod = 'transfer';
+  String? _buktiBase64;
 
   void _copyToClipboard(String text, String label) {
     Clipboard.setData(ClipboardData(text: text));
@@ -53,7 +66,6 @@ class _DonationCashPageState extends State<DonationCashPage> {
       ),
     );
   }
-
 
   Future<void> _submit() async {
     if (_nama.text.trim().isEmpty) {
@@ -72,24 +84,50 @@ class _DonationCashPageState extends State<DonationCashPage> {
       _showSnackBar('Nominal donasi harus diisi', Colors.orange);
       return;
     }
-
-    final confirmNoBukti = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Konfirmasi'),
-        content: const Text('Apakah Anda sudah upload bukti transfer? Jika belum, anda masih bisa mengirim tanpa bukti.'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Belum')),
-          TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Sudah')),
-        ],
-      ),
-    );
-
-    if (confirmNoBukti == null || confirmNoBukti == false) {
-      _showSnackBar('Mohon upload bukti transfer atau konfirmasi', Colors.orange);
+    if (_buktiBase64 == null || _buktiBase64!.isEmpty) {
+      _showSnackBar('Bukti transfer harus diupload', Colors.orange);
       return;
     }
 
+    // Show loading
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      final controller = Provider.of<DonasiController>(context, listen: false);
+      
+      final success = await controller.createDonationTunai(
+        donatur: _nama.text.trim(),
+        email: _email.text.trim(),
+        hp: _hp.text.trim(),
+        nominal: _nominal.text.trim(),
+        metode: _selectedMethod,
+        catatan: _catatan.text.trim().isEmpty ? null : _catatan.text.trim(),
+        buktiBase64: _buktiBase64,
+      );
+
+      // Close loading
+      if (mounted) Navigator.pop(context);
+
+      if (success) {
+        _showSuccessDialog();
+      } else {
+        _showSnackBar(
+          controller.errorMessage ?? 'Gagal mengirim donasi',
+          Colors.red,
+        );
+      }
+    } catch (e) {
+      // Close loading
+      if (mounted) Navigator.pop(context);
+      _showSnackBar('Error: $e', Colors.red);
+    }
+  }
+
+  void _showSuccessDialog() {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -114,13 +152,20 @@ class _DonationCashPageState extends State<DonationCashPage> {
             const SizedBox(height: 20),
             Text(
               'Terima Kasih!',
-              style: AppTextStyles.heading.copyWith(fontSize: 22, color: AppColors.darkBlue),
+              style: AppTextStyles.heading.copyWith(
+                fontSize: 22,
+                color: AppColors.darkBlue,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
               'Donasi tunai Anda telah kami terima dan sedang dalam proses verifikasi.',
               textAlign: TextAlign.center,
-              style: AppTextStyles.body.copyWith(fontSize: 14, color: Colors.grey[700], height: 1.5),
+              style: AppTextStyles.body.copyWith(
+                fontSize: 14,
+                color: Colors.grey[700],
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 8),
             Container(
@@ -136,7 +181,11 @@ class _DonationCashPageState extends State<DonationCashPage> {
                   Expanded(
                     child: Text(
                       'Tim kami akan mengonfirmasi melalui WhatsApp dalam 1x24 jam.',
-                      style: AppTextStyles.body.copyWith(fontSize: 12, color: Colors.grey[700], height: 1.4),
+                      style: AppTextStyles.body.copyWith(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
                     ),
                   ),
                 ],
@@ -158,7 +207,13 @@ class _DonationCashPageState extends State<DonationCashPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Text('Kembali ke Beranda', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
+                child: Text(
+                  'Kembali ke Beranda',
+                  style: AppTextStyles.body.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
@@ -171,7 +226,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
     if (index == 0) {
       Navigator.pushReplacementNamed(context, '/home');
     } else if (index == 1) {
-      showDonationModal(context); 
+      showDonationModal(context);
     } else if (index == 2) {
       Navigator.pushReplacementNamed(context, '/profile');
     }
@@ -206,11 +261,17 @@ class _DonationCashPageState extends State<DonationCashPage> {
             children: [
               Icon(Icons.account_balance, color: AppColors.primaryBlue, size: 24),
               const SizedBox(width: 10),
-              Text('Rekening Tujuan', style: AppTextStyles.heading.copyWith(fontSize: 16, color: AppColors.darkBlue)),
+              Text(
+                'Rekening Tujuan',
+                style: AppTextStyles.heading.copyWith(
+                  fontSize: 16,
+                  color: AppColors.darkBlue,
+                ),
+              ),
             ],
           ),
-              const SizedBox(height: 16),
-              ..._bankAccounts.map((bank) {
+          const SizedBox(height: 16),
+          ..._bankAccounts.map((bank) {
             return TransferBankCard(
               bank: bank['bank']!,
               number: bank['number']!,
@@ -224,7 +285,7 @@ class _DonationCashPageState extends State<DonationCashPage> {
   }
 
   Widget _buildQrisSection() {
-  return QrisSection(qrisAssetPath: 'assets/img/qris.jpg');
+    return QrisSection(qrisAssetPath: 'assets/img/qris.png');
   }
 
   Widget _buildFormSection() {
@@ -235,6 +296,11 @@ class _DonationCashPageState extends State<DonationCashPage> {
       nominalController: _nominal,
       catatanController: _catatan,
       onSubmit: _submit,
+      onBuktiChanged: (String? base64String) {
+        setState(() {
+          _buktiBase64 = base64String;
+        });
+      },
     );
   }
 
@@ -255,7 +321,10 @@ class _DonationCashPageState extends State<DonationCashPage> {
         showBack: true,
         onNotification: () => Navigator.pushNamed(context, '/notification'),
       ),
-      bottomNavigationBar: AppBottomNav(currentIndex: _selectedIndex, onTap: _onNavTap),
+      bottomNavigationBar: AppBottomNav(
+        currentIndex: _selectedIndex,
+        onTap: _onNavTap,
+      ),
       body: BackgroundContainer(
         child: SafeArea(
           child: SingleChildScrollView(
@@ -263,7 +332,6 @@ class _DonationCashPageState extends State<DonationCashPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -296,19 +364,19 @@ class _DonationCashPageState extends State<DonationCashPage> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Text(
-                                          'Donasi Tunai',
-                                          style: AppTextStyles.titleWhite.copyWith(fontSize: 20),
-                                        ),
-                                      ),
+                          Expanded(
+                            child: Text(
+                              'Donasi Tunai',
+                              style: AppTextStyles.titleWhite.copyWith(fontSize: 20),
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
-                                  Text(
-                                    'Setiap rupiah yang Anda berikan akan membantu kesejahteraan Oma & Opa',
-                                    style: AppTextStyles.titleWhite.copyWith(fontSize: 13),
-                                  ),
+                      Text(
+                        'Setiap rupiah yang Anda berikan akan membantu kesejahteraan Oma & Opa',
+                        style: AppTextStyles.titleWhite.copyWith(fontSize: 13),
+                      ),
                     ],
                   ),
                 ),
@@ -317,7 +385,9 @@ class _DonationCashPageState extends State<DonationCashPage> {
                 const SizedBox(height: 20),
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
-                  child: _selectedMethod == 'transfer' ? _buildTransferSection() : _buildQrisSection(),
+                  child: _selectedMethod == 'transfer'
+                      ? _buildTransferSection()
+                      : _buildQrisSection(),
                 ),
                 const SizedBox(height: 24),
                 _buildFormSection(),

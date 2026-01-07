@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:http/http.dart' as http;
+import '../auth/login_page.dart';
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
 import '../../themes/app_theme.dart';
-
+import '../../services/auth_service.dart';
+import '../../core/storage/token_storage.dart';
+import '../../core/config/api_config.dart';
 import '../../widgets/reusable/top_header.dart';
 import '../../widgets/reusable/app_bottom_nav.dart';
 import '../../widgets/homepage/home_welcome_card.dart';
@@ -15,10 +19,8 @@ import '../../widgets/homepage/info_card.dart';
 import '../../widgets/homepage/contact_item.dart';
 import '../../widgets/donation/donation_modal.dart';
 
-
 void _openURL(String url) async {
   final uri = Uri.parse(url);
-
   if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
     debugPrint("Gagal membuka link: $url");
   }
@@ -37,6 +39,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _messageController = TextEditingController();
 
   int currentIndex = 0;
+  bool _isLoggedIn = false;
+  Map<String, dynamic>? _userData;
 
   // Image assets
   final List<String> kegiatanImages = [
@@ -56,6 +60,24 @@ class _HomePageState extends State<HomePage> {
     "assets/img/foto7.jpg",
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final isLoggedIn = await TokenStorage.isLoggedIn();
+    final userData = await TokenStorage.getUser();
+    
+    if (mounted) {
+      setState(() {
+        _isLoggedIn = isLoggedIn;
+        _userData = userData;
+      });
+    }
+  }
+
   void _onNavTap(int index) {
     if (index == 0) {
       setState(() => currentIndex = 0);
@@ -67,37 +89,149 @@ class _HomePageState extends State<HomePage> {
     setState(() => currentIndex = index);
   }
 
-  // Kirim pesan
-  void _sendMessage() {
+  // KIRIM PESAN KE LARAVEL API
+  Future<void> _sendMessage() async {
     if (_messageController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Pesan tidak boleh kosong")));
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(
-          children: const [
-            Icon(Icons.check_circle, color: Colors.green),
-            SizedBox(width: 8),
-            Text("Pesan Terkirim!"),
+    if (!_isLoggedIn) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Login Diperlukan"),
+          content: const Text("Anda harus login terlebih dahulu untuk mengirim pesan cinta."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Nanti Saja"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => LoginPage()),
+                ).then((_) => _checkLoginStatus());
+              },
+              child: const Text("Login Sekarang"),
+            ),
           ],
         ),
-        content: const Text("Terima kasih atas pesan cinta Anda 💌"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              _messageController.clear();
-              Navigator.pop(context);
-            },
-            child: const Text("Tutup"),
-          )
-        ],
-      ),
+      );
+      return;
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
     );
+
+    try {
+      final user = await TokenStorage.getUser();
+      final token = await TokenStorage.getToken();
+      
+      if (user == null || token == null) {
+        throw Exception('Silakan login ulang');
+      }
+
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}/feedback'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'user_id': user['id'],
+          'nama': user['nama'],
+          'email': user['email'],
+          'telepon': user['telepon'] ?? '',
+          'pesan': _messageController.text.trim(),
+          'tanggal': DateTime.now().toIso8601String().split('T')[0],
+          'jam': DateTime.now().toIso8601String().split('T')[1].split('.')[0],
+          'status': 'unread',
+        }),
+      );
+
+      Navigator.pop(context);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        
+        if (data['success'] == true) {
+          _messageController.clear();
+          
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              title: const Row(
+                children: [
+                  Icon(Icons.check_circle, color: Colors.green),
+                  SizedBox(width: 8),
+                  Text("Pesan Terkirim!"),
+                ],
+              ),
+              content: const Text("Terima kasih atas pesan cinta Anda 💌"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Tutup"),
+                )
+              ],
+            ),
+          );
+        } else {
+          throw Exception(data['message'] ?? 'Gagal mengirim pesan');
+        }
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(errorData['message'] ?? 'Error ${response.statusCode}');
+      }
+
+    } catch (e) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Gagal mengirim: ${e.toString().replaceAll('Exception: ', '')}"),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  Widget _buildUserStatusInfo() {
+    if (_isLoggedIn && _userData != null) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Text(
+          "Halo, ${_userData!['nama']}! ✨",
+          style: TextStyle(
+            color: AppColors.primaryBlue,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Text(
+          "Login untuk mengirim pesan cinta 💌",
+          style: TextStyle(
+            color: Colors.grey.shade600,
+            fontSize: 12,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
   }
 
   Future<void> _openMaps() async {
@@ -146,7 +280,10 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 30),
 
               const SectionHeader(title: "Pesan Cinta untuk Oma & Opa", icon: Icons.favorite),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
+              
+              _buildUserStatusInfo(),
+              
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -177,15 +314,17 @@ class _HomePageState extends State<HomePage> {
                           Icons.send,
                           color: Colors.white,    
                         ),
-                        label: const Text(
-                          "Kirim Pesan",
-                          style: TextStyle(
+                        label: Text(
+                          _isLoggedIn ? "Kirim Pesan" : "Login untuk Mengirim",
+                          style: const TextStyle(
                             color: Colors.white,   
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryBlue,
+                          backgroundColor: _isLoggedIn 
+                              ? AppColors.primaryBlue 
+                              : Colors.grey,
                           foregroundColor: Colors.white, 
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -198,7 +337,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 30),
 
-              SectionHeader(title: "Hubungi Kami", icon: Icons.phone),
+              const SectionHeader(title: "Hubungi Kami", icon: Icons.phone),
               const SizedBox(height: 20),
 
               ContactItem(
