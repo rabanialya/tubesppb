@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,6 +13,7 @@ class CashDonationForm extends StatefulWidget {
   final TextEditingController nominalController;
   final TextEditingController catatanController;
   final VoidCallback onSubmit;
+  final ValueChanged<String?>? onBuktiChanged;
 
   const CashDonationForm({
     Key? key,
@@ -21,6 +23,7 @@ class CashDonationForm extends StatefulWidget {
     required this.nominalController,
     required this.catatanController,
     required this.onSubmit,
+    this.onBuktiChanged,
   }) : super(key: key);
 
   @override
@@ -37,10 +40,13 @@ class _CashDonationFormState extends State<CashDonationForm> {
       setState(() {
         _buktiTransfer = File(file.path);
       });
+      
+      // Konversi ke base64 dan kirim ke parent
+      final bytes = await _buktiTransfer!.readAsBytes();
+      final base64Image = base64Encode(bytes);
+      widget.onBuktiChanged?.call(base64Image);
     }
   }
-
-  File? get currentBukti => _buktiTransfer;
 
   @override
   Widget build(BuildContext context) {
