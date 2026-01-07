@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
@@ -8,6 +9,9 @@ import '../../../themes/app_theme.dart';
 import '../../widgets/auth/custom_text_field.dart';
 import '../../widgets/auth/logo_circle.dart';
 import '../../widgets/auth/input_label.dart';
+
+import '../../controllers/auth_controller.dart';
+import '../dashboard/homepage.dart'; // ✅ TAMBAH IMPORT INI
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,6 +24,79 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  // FUNGSI LOGIN - UPDATE INI
+  Future<void> _handleLogin() async {
+    // Validasi sederhana
+    if (emailController.text.trim().isEmpty) {
+      _showError('Email tidak boleh kosong');
+      return;
+    }
+    if (!emailController.text.contains('@')) {
+      _showError('Format email tidak valid');
+      return;
+    }
+    if (passwordController.text.isEmpty) {
+      _showError('Password tidak boleh kosong');
+      return;
+    }
+
+    // Hilangkan keyboard
+    FocusScope.of(context).unfocus();
+
+    final authController = Provider.of<AuthController>(context, listen: false);
+
+    final success = await authController.login(
+      email: emailController.text.trim(),
+      password: passwordController.text,
+    );
+
+    if (!mounted) return;
+
+    if (success) {
+      // Login berhasil - REDIRECT KE HOME
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (route) => false, // Hapus semua route sebelumnya
+      );
+      
+      // Tampilkan success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login berhasil!'),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      // Login gagal
+      _showError(authController.errorMessage ?? 'Login gagal. Periksa email dan password Anda.');
+    }
+  }
+
+  // FUNGSI SHOW ERROR
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,29 +201,42 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 12),
 
-                            // Login Button
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () =>
-                                    Navigator.pushReplacementNamed(context, '/home'),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primaryBlue,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                            // Login Button - MODIFIKASI INI
+                            Consumer<AuthController>(
+                              builder: (context, authController, child) {
+                                return SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: authController.isLoading ? null : _handleLogin,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.primaryBlue,
+                                      foregroundColor: Colors.white,
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      elevation: 2,
+                                      disabledBackgroundColor: AppColors.primaryBlue.withOpacity(0.6),
+                                    ),
+                                    child: authController.isLoading
+                                        ? const SizedBox(
+                                            height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2.5,
+                                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                            ),
+                                          )
+                                        : const Text(
+                                            'Masuk',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                   ),
-                                  elevation: 2,
-                                ),
-                                child: const Text(
-                                  'Masuk',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -164,14 +254,14 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
       ),
-    )
-  );
+    );
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../themes/colors.dart';
 import '../../themes/text_styles.dart';
-import '../../themes/app_theme.dart';
 
 import '../../widgets/setting_pass/step_progress_indicator.dart';
 import '../../widgets/setting_pass/step_email.dart';
 import '../../widgets/setting_pass/step_verification.dart';
 import '../../widgets/setting_pass/step_new_password.dart';
 import '../../widgets/setting_pass/reset_header.dart';
+
+import '../../controllers/setting_pass_controller.dart';
 
 class SettingPassPage extends StatefulWidget {
   const SettingPassPage({super.key});
@@ -29,6 +29,19 @@ class _SettingPassPageState extends State<SettingPassPage> {
   bool _obscureNewPass = true;
   bool _obscureConfirm = true;
 
+  // Controller untuk handle reset password
+  final _resetController = SettingPassController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    kodeController.dispose();
+    newPassController.dispose();
+    confirmPassController.dispose();
+    _resetController.dispose();
+    super.dispose();
+  }
+
   //--------------------------------------------
   // SNACKBAR
   //--------------------------------------------
@@ -46,8 +59,9 @@ class _SettingPassPageState extends State<SettingPassPage> {
   //--------------------------------------------
   // NEXT STEP LOGIC
   //--------------------------------------------
-  void _nextStep() {
+  Future<void> _nextStep() async {
     if (step == 1) {
+      // Validasi email
       if (emailController.text.trim().isEmpty) {
         return _showSnackBar('Email harus diisi', Colors.orange);
       }
@@ -55,10 +69,28 @@ class _SettingPassPageState extends State<SettingPassPage> {
         return _showSnackBar('Format email tidak valid', Colors.red);
       }
 
-      _showSnackBar('Kode verifikasi telah dikirim ke email Anda', Colors.green);
-      setState(() => step = 2);
+      // Kirim kode verifikasi
+      final result = await _resetController.sendVerificationCode(
+        emailController.text.trim(),
+      );
+
+      if (result['success']) {
+        _showSnackBar(result['message'], Colors.green);
+        
+        // Development only: tampilkan kode di snackbar
+        if (result['token'] != null) {
+          Future.delayed(const Duration(seconds: 1), () {
+            _showSnackBar('DEV: Kode = ${result['token']}', Colors.blue);
+          });
+        }
+        
+        setState(() => step = 2);
+      } else {
+        _showSnackBar(result['message'], Colors.red);
+      }
 
     } else if (step == 2) {
+      // Validasi kode verifikasi
       if (kodeController.text.trim().isEmpty) {
         return _showSnackBar('Kode verifikasi harus diisi', Colors.orange);
       }
@@ -66,10 +98,20 @@ class _SettingPassPageState extends State<SettingPassPage> {
         return _showSnackBar('Kode verifikasi harus 6 digit', Colors.orange);
       }
 
-      _showSnackBar('Kode berhasil diverifikasi!', Colors.green);
-      setState(() => step = 3);
+      // Verify kode
+      final result = await _resetController.verifyCode(
+        kodeController.text.trim(),
+      );
+
+      if (result['success']) {
+        _showSnackBar(result['message'], Colors.green);
+        setState(() => step = 3);
+      } else {
+        _showSnackBar(result['message'], Colors.red);
+      }
 
     } else {
+      // Step 3: Reset password
       if (newPassController.text.isEmpty || confirmPassController.text.isEmpty) {
         return _showSnackBar('Semua field harus diisi', Colors.orange);
       }
@@ -80,45 +122,80 @@ class _SettingPassPageState extends State<SettingPassPage> {
         return _showSnackBar('Password tidak cocok', Colors.red);
       }
 
-      //-----------------------------------
-      // ALERT PASSWORD BERHASIL DIGANTI
-      //-----------------------------------
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: Row(
-            children: [
-              Icon(Icons.check_circle, color: Colors.green, size: 28),
-              SizedBox(width: 12),
-              Text(
-                'Berhasil!',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          content: const Text(
-            'Password Anda telah berhasil diubah. Silakan login dengan password baru.',
-            style: TextStyle(
-              height: 1.5,
-              fontFamily: AppTextStyles.fontFamily,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-              child: const Text(
-                'Login Sekarang',
-                style: TextStyle(fontFamily: AppTextStyles.fontFamily),
-              ),
+      // Reset password
+      final result = await _resetController.resetPassword(
+        newPassController.text,
+      );
+
+      if (result['success']) {
+        // Alert berhasil
+        _showSuccessDialog();
+      } else {
+        _showSnackBar(result['message'], Colors.red);
+      }
+    }
+  }
+
+  //--------------------------------------------
+  // RESEND CODE
+  //--------------------------------------------
+  Future<void> _handleResend() async {
+    final result = await _resetController.resendCode();
+
+    if (result['success']) {
+      _showSnackBar('Kode verifikasi telah dikirim ulang', Colors.green);
+      
+      // Development only
+      if (result['token'] != null) {
+        Future.delayed(const Duration(seconds: 1), () {
+          _showSnackBar('DEV: Kode baru = ${result['token']}', Colors.blue);
+        });
+      }
+    } else {
+      _showSnackBar(result['message'], Colors.red);
+    }
+  }
+
+  //--------------------------------------------
+  // SUCCESS DIALOG
+  //--------------------------------------------
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.check_circle, color: Colors.green, size: 28),
+            const SizedBox(width: 12),
+            Text(
+              'Berhasil!',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
             ),
           ],
         ),
-      );
-    }
+        content: const Text(
+          'Password Anda telah berhasil diubah. Silakan login dengan password baru.',
+          style: TextStyle(
+            height: 1.5,
+            fontFamily: AppTextStyles.fontFamily,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: const Text(
+              'Login Sekarang',
+              style: TextStyle(fontFamily: AppTextStyles.fontFamily),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   //--------------------------------------------
@@ -150,9 +227,7 @@ class _SettingPassPageState extends State<SettingPassPage> {
       return StepVerification(
         controller: kodeController,
         onNext: _nextStep,
-        onResend: () {
-          _showSnackBar('Kode verifikasi telah dikirim ulang', Colors.green);
-        },
+        onResend: _handleResend,
       );
     } else {
       return StepNewPassword(
